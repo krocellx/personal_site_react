@@ -3,7 +3,7 @@ import { Button, Jumbotron } from 'react-bootstrap';
 
 const Welcome = () => (
   <Jumbotron>
-    <h1>Harvery Xie's personal Site</h1>
+    <h1>Harvey Xie's personal Site</h1>
     <p>This is simple application using React and Python. Enter serch term</p>
     <p>
       <Button variant="primary" href="https://unsplash.com" target="_blank">
