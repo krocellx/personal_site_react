@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import Search from './components/Search';
@@ -21,8 +23,10 @@ function App() {
         const res = await axios.get(`${API_URL}/images`);
         setImages(res.data || []);
         setLoading(false);
+        toast.success('Saved images downloaded');
       } catch (error) {
         console.log(error);
+        toast.error(error.message);
       }
     }
     getSavedImages();
@@ -35,8 +39,10 @@ function App() {
       const res = await axios.get(`${API_URL}/new-image?query=${word}`);
       console.log(res.data);
       setImages([{ ...res.data, title: word }, ...images]);
+      toast.info(`New image ${word} was found`);
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
 
     setWord('');
@@ -46,28 +52,36 @@ function App() {
     try {
       const res = await axios.delete(`${API_URL}/images/${id}`);
       if (res.data?.deleted_id) {
+        toast.warning(
+          `Image ${images
+            .find((i) => i.id === id)
+            .title.toUpperCase()} was deleted`
+        );
         setImages(images.filter((image) => image.id !== id));
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 
   const handleSaveImage = async (id) => {
-    const imageToBeSave = images.find((image) => image.id === id);
-    imageToBeSave.saved = true;
+    const imageToBeSaved = images.find((image) => image.id === id);
+    imageToBeSaved.saved = true;
 
     try {
-      const res = await axios.post(`${API_URL}/images`, imageToBeSave);
+      const res = await axios.post(`${API_URL}/images`, imageToBeSaved);
       if (res.data?.inserted_id) {
         setImages(
           images.map((image) =>
             image.id === id ? { ...image, saved: true } : image
           )
         );
+        toast.info(`Image ${imageToBeSaved.title.toUpperCase()} was saved`);
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -102,6 +116,7 @@ function App() {
           </Container>
         </>
       )}
+      <ToastContainer position="bottom-right" />
     </div>
   );
 }
