@@ -10,7 +10,8 @@ MONGO_PASSWORD = os.environ.get("MONGO_PASSWORD", "")
 MONGO_PORT = os.environ.get("MONGO_PORT", 27017)
 
 mongo_client = MongoClient(
-    host=MONGO_URL, username=MONGO_USERNAME, password=MONGO_PASSWORD, port=MONGO_PORT
+    # host=MONGO_URL, username=MONGO_USERNAME, password=MONGO_PASSWORD, port=MONGO_PORT
+    MONGO_URL
 )
 
 
@@ -20,3 +21,7 @@ def insert_test_document():
     test_collection = db.test_collection
     res = test_collection.insert_one({"name": "Harvey", "owner": True})
     print(res)
+
+
+if __name__ == "__main__":
+    insert_test_document()
