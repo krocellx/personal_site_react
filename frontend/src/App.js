@@ -11,7 +11,7 @@ import Spinner from './components/Spinner';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
-const WEB_URL = process.env.REACT_WEB_URL || 'http://localhost:3000/';
+const WEB_URL = process.env.REACT_APP_WEB_URL || 'http://localhost:3000/';
 
 function App() {
   const [word, setWord] = useState('');
