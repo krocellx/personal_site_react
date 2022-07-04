@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, make_response
 from dotenv import load_dotenv
 from flask_cors import CORS
 from mongo_client import mongo_client
+from datetime import datetime
 
 gallery = mongo_client.gallery
 images_collection = gallery.images
@@ -80,6 +81,13 @@ def stock_price():
     response = requests.get(url=url, params=params)
     if response.status_code == 200:
         data = response.json()
+        # sort data
+        hist_price = data["historical"]
+        sorted_hist_price = sorted(
+            hist_price, key=lambda t: datetime.strptime(t["date"], "%Y-%m-%d")
+        )
+        data["historical"] = sorted_hist_price
+        return data
     else:
         data = make_response(response.json()["error"], response.status_code)
     return data
