@@ -1,9 +1,10 @@
 import os
 import requests
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from dotenv import load_dotenv
 from flask_cors import CORS
 from mongo_client import mongo_client
+from datetime import datetime
 
 gallery = mongo_client.gallery
 images_collection = gallery.images
@@ -12,6 +13,8 @@ load_dotenv(dotenv_path="./.env.local")
 
 UNSPLASH_URL = "https://api.unsplash.com/photos/random"
 UNSPLASH_KEY = os.environ.get("UNSPLASH_KEY", "")
+FMP_HIST_URL = "https://financialmodelingprep.com/api/v3/historical-price-full/"
+FMP_KEY = os.environ.get("FMP_KEY", "")
 DEBUG = bool(os.environ.get("DEBUG", True))
 
 if not UNSPLASH_KEY:
@@ -67,6 +70,27 @@ def images_delete(image_id):
         if result and not result.deleted_count:
             return {"error": "Image not found"}, 404
         return {"deleted_id": image_id}
+
+
+@app.route("/stock_price", methods=["GET"])
+def stock_price():
+    # FMP_HIST_URL = "https://financialmodelingprep.com/api/v3/historical-price-full/"
+    ticker = request.args.get("ticker")
+    url = FMP_HIST_URL + ticker.upper()
+    params = {"apikey": FMP_KEY}
+    response = requests.get(url=url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        # sort data
+        hist_price = data["historical"]
+        sorted_hist_price = sorted(
+            hist_price, key=lambda t: datetime.strptime(t["date"], "%Y-%m-%d")
+        )
+        data["historical"] = sorted_hist_price
+        return data
+    else:
+        data = make_response(response.json()["error"], response.status_code)
+    return data
 
 
 if __name__ == "__main__":
