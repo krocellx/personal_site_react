@@ -9,14 +9,6 @@ import SubMenu from './SubMenu';
 import { ReactComponent as Logo } from '../images/logo.svg';
 import { IconContext } from 'react-icons/lib';
 
-const Nav = styled.div`
-  background: #15171c;
-  height: 80px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
 const NavIcon = styled(Link)`
   margin-left: 2rem;
   font-size: 2rem;
