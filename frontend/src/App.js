@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Search from './components/Search';
 import ImageCard from './components/ImageCard';
@@ -10,6 +11,7 @@ import Welcome from './components/Welcome';
 import Spinner from './components/Spinner';
 import Charts from './components/Charts';
 import StockSearch from './components/StockSearch';
+import Sidebar from './components/Sidebar';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
@@ -111,7 +113,10 @@ function App() {
 
   return (
     <div>
-      <Header title="Personal Site" />
+      {/* <Header title="Personal Site" /> */}
+      <Router>
+        <Sidebar title="Personal Site" />
+      </Router>
       {loading ? (
         <Spinner />
       ) : (
