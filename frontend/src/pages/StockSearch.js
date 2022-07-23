@@ -1,5 +1,5 @@
 import { useState, useEffect, React } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import Welcome from '../components/Welcome';
 import StockSearch from '../components/StockSearch';

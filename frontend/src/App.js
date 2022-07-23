@@ -1,21 +1,15 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Welcome from './components/Welcome';
-import Spinner from './components/Spinner';
-import Charts from './components/Charts';
-import StockSearch from './components/StockSearch';
 import Sidebar from './components/Sidebar';
 import ImageSearch from './pages/ImageSearch';
 import StockSearchPage from './pages/StockSearch';
 // import { Reports, ReportsOne, ReportsTwo, ReportsThree } from './pages/Reports';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Home from './pages/Home';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
 const WEB_URL = process.env.REACT_APP_WEB_URL || 'http://localhost:3000/';
 
 function App() {
