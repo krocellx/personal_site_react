@@ -1,13 +1,13 @@
 import React from 'react';
-import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
 import * as RiIcons from 'react-icons/ri';
+// import * as FaIcons from 'react-icons/fa';
+// import * as IoIcons from 'react-icons/io';
 
 export const SidebarData = [
   {
-    title: 'Overview',
-    path: '/overview',
+    title: 'Home',
+    path: '/home',
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -15,8 +15,13 @@ export const SidebarData = [
 
   {
     title: 'Image Search',
-    path: '/ImageSearch',
-    icon: <FaIcons.FaCartPlus />,
+    path: '/image-search',
+    icon: <AiIcons.AiFillPicture />,
+  },
+  {
+    title: 'Stock Search',
+    path: '/stock-search',
+    icon: <AiIcons.AiOutlineStock />,
   },
   // {
   //   title: 'Team',

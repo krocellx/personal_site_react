@@ -56,7 +56,7 @@ const Sidebar = ({ title }) => {
           </NavIcon>
           <Logo alt={title} style={{ maxWidth: '12rem', maxHeight: '2rem' }} />
         </Navbar>
-        <SidebarNav sidebar={sidebar}>
+        <SidebarNav sidebar={sidebar} onClick={showSidebar}>
           <SidebarWrap>
             <NavIcon to="#">
               <AiIcons.AiOutlineClose onClick={showSidebar} />

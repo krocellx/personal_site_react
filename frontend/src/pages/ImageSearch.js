@@ -1,10 +1,10 @@
 import { useState, useEffect, React } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
-import Welcome from './components/Welcome';
-import ImageCard from './components/ImageCard';
-import Search from './components/Search';
-import Spinner from './components/Spinner';
+import Welcome from '../components/Welcome';
+import ImageCard from '../components/ImageCard';
+import Search from '../components/Search';
+import Spinner from '../components/Spinner';
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
@@ -114,6 +114,7 @@ const ImageSearch = () => {
           </Container>
         </>
       )}
+      <ToastContainer position="bottom-right" />
     </div>
   );
 };
