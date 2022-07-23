@@ -38,8 +38,8 @@ const navbarStyle = {
   backgroundColor: '#15171c',
   height: '70px',
   display: 'flex',
-  'justify-content': 'flex-start',
-  'align-items': 'center',
+  justifyCcontent: 'flex-start',
+  alignItems: 'center',
 };
 
 const Sidebar = ({ title }) => {

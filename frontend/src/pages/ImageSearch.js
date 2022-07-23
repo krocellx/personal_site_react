@@ -33,7 +33,7 @@ const ImageSearch = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.get(`${API_URL}/?query=${word}`);
+      const res = await axios.get(`${API_URL}/new-image?query=${word}`);
       console.log(res.data);
       setImages([{ ...res.data, title: word }, ...images]);
       toast.info(`New image ${word} was found`);
@@ -82,9 +82,6 @@ const ImageSearch = () => {
     }
   };
   return (
-    // <div className="home">
-
-    // </div>
     <div>
       {loading ? (
         <Spinner />
