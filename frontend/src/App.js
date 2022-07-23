@@ -13,24 +13,10 @@ import Home from './pages/Home';
 const WEB_URL = process.env.REACT_APP_WEB_URL || 'http://localhost:3000/';
 
 function App() {
+  // ping the website to stay active in Heroku
   setInterval(() => {
     axios.get(`${WEB_URL}`);
   }, 25 * 60 * 1000);
-
-  // useEffect(() => {
-  //   async function getSavedImages() {
-  //     try {
-  //       const res = await axios.get(`${API_URL}/images`);
-  //       setImages(res.data || []);
-  //       setLoading(false);
-  //       toast.success('Saved images downloaded');
-  //     } catch (error) {
-  //       console.log(error);
-  //       toast.error(error.message);
-  //     }
-  //   }
-  //   getSavedImages();
-  // }, []);
 
   return (
     <div>
