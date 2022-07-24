@@ -1,157 +1,38 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './components/Header';
-import Search from './components/Search';
-import ImageCard from './components/ImageCard';
-import Welcome from './components/Welcome';
-import Spinner from './components/Spinner';
-import Charts from './components/Charts';
-import StockSearch from './components/StockSearch';
-import { Container, Row, Col } from 'react-bootstrap';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Sidebar from './components/Sidebar';
+import ImageSearch from './pages/ImageSearch';
+import StockSearchPage from './pages/StockSearch';
+// import { Reports, ReportsOne, ReportsTwo, ReportsThree } from './pages/Reports';
+import { Container } from 'react-bootstrap';
+import Home from './pages/Home';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
 const WEB_URL = process.env.REACT_APP_WEB_URL || 'http://localhost:3000/';
 
 function App() {
-  const [word, setWord] = useState('');
-  const [ticker, setTicker] = useState('');
-  const [histPrice, setHistPrice] = useState({ symbol: 'empty' });
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  // ping the website to stay active in Heroku
   setInterval(() => {
     axios.get(`${WEB_URL}`);
   }, 25 * 60 * 1000);
 
-  useEffect(() => {
-    async function getSavedImages() {
-      try {
-        const res = await axios.get(`${API_URL}/images`);
-        setImages(res.data || []);
-        setLoading(false);
-        toast.success('Saved images downloaded');
-      } catch (error) {
-        console.log(error);
-        toast.error(error.message);
-      }
-    }
-    getSavedImages();
-  }, []);
-
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await axios.get(`${API_URL}/?query=${word}`);
-      console.log(res.data);
-      setImages([{ ...res.data, title: word }, ...images]);
-      toast.info(`New image ${word} was found`);
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-    }
-
-    setWord('');
-  };
-  const handleStockSearchSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await axios.get(`${API_URL}/stock_price?ticker=${ticker}`);
-      console.log(res.data);
-      setHistPrice(res.data);
-      toast.info(`Stock ${ticker} was found`);
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-    }
-
-    setTicker('');
-  };
-
-  const handleDeleteImage = async (id) => {
-    try {
-      const res = await axios.delete(`${API_URL}/images/${id}`);
-      if (res.data?.deleted_id) {
-        toast.warning(
-          `Image ${images
-            .find((i) => i.id === id)
-            .title.toUpperCase()} was deleted`
-        );
-        setImages(images.filter((image) => image.id !== id));
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-    }
-  };
-
-  const handleSaveImage = async (id) => {
-    const imageToBeSaved = images.find((image) => image.id === id);
-    imageToBeSaved.saved = true;
-
-    try {
-      const res = await axios.post(`${API_URL}/images`, imageToBeSaved);
-      if (res.data?.inserted_id) {
-        setImages(
-          images.map((image) =>
-            image.id === id ? { ...image, saved: true } : image
-          )
-        );
-        toast.info(`Image ${imageToBeSaved.title.toUpperCase()} was saved`);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-    }
-  };
-
   return (
     <div>
-      <Header title="Personal Site" />
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {/* <Search
-            word={word}
-            setWord={setWord}
-            handleSubmit={handleSearchSubmit}
-          /> */}
-          <StockSearch
-            ticker={ticker}
-            setTicker={setTicker}
-            handleSubmit={handleStockSearchSubmit}
-          />
-          {/* <Container className="mt-4">
-            {images.length ? (
-              <Row xs={1} md={2} lg={3}>
-                {images.map((image, i) => (
-                  <Col key={i} className="pb-3">
-                    <ImageCard
-                      image={image}
-                      deleteImage={handleDeleteImage}
-                      saveImage={handleSaveImage}
-                    />
-                  </Col>
-                ))}
-              </Row>
-            ) : (
-              <Welcome />
-            )}
-          </Container> */}
-          <Container className="mt-4">
-            {histPrice.symbol !== 'empty' ? (
-              <Charts data={histPrice} />
-            ) : (
-              <Welcome />
-            )}
-          </Container>
-        </>
-      )}
+      {/* <Header title="Personal Site" /> */}
+      <Router>
+        <Sidebar title="Personal Site" />
+        <Container className="mt-4">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/image-search" element={<ImageSearch />} />
+            <Route path="/stock-search" element={<StockSearchPage />} />
+          </Routes>
+        </Container>
+      </Router>
+
       <ToastContainer position="bottom-right" />
     </div>
   );

@@ -6,7 +6,11 @@ const Welcome = () => (
     <h1>Harvey Xie's personal Site</h1>
     <p>This is simple application using React and Python. Enter serch term</p>
     <p>
-      <Button variant="primary" href="https://unsplash.com" target="_blank">
+      <Button
+        variant="primary"
+        href="https://github.com/krocellx/personal_site_react"
+        target="_blank"
+      >
         Learn more
       </Button>
     </p>
