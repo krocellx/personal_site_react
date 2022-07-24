@@ -1,10 +1,16 @@
 import os
-import requests
-from flask import Flask, request, jsonify, make_response
-from dotenv import load_dotenv
-from flask_cors import CORS
-from mongo_client import mongo_client
-from datetime import datetime
+
+import sys
+
+fpath = os.path.dirname(__file__)
+sys.path.append(fpath)
+
+import requests  # noqa: E402
+from flask import Flask, request, jsonify, make_response  # noqa: E402
+from dotenv import load_dotenv  # noqa: E402
+from flask_cors import CORS  # noqa: E402
+from mongo_client import mongo_client  # noqa: E402
+from datetime import datetime  # noqa: E402
 
 gallery = mongo_client.gallery
 images_collection = gallery.images
