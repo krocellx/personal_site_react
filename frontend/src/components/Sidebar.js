@@ -20,7 +20,7 @@ const NavIcon = styled(Link)`
 
 const SidebarNav = styled.nav`
   background: #15171c;
-  width: 250px;
+  width: 200px;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -40,6 +40,7 @@ const navbarStyle = {
   display: 'flex',
   justifyCcontent: 'flex-start',
   alignItems: 'center',
+  paddingLeft: '0rem',
 };
 
 const Sidebar = ({ title }) => {
@@ -54,7 +55,15 @@ const Sidebar = ({ title }) => {
           <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
-          <Logo alt={title} style={{ maxWidth: '12rem', maxHeight: '2rem' }} />
+          <Logo
+            alt={title}
+            style={{
+              maxWidth: '12rem',
+              maxHeight: '2.5rem',
+              marginLeft: '8rem',
+              paddingUp: '0.5rem',
+            }}
+          />
         </Navbar>
         <SidebarNav sidebar={sidebar} onClick={showSidebar}>
           <SidebarWrap>

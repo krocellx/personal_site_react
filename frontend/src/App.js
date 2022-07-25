@@ -20,7 +20,6 @@ function App() {
 
   return (
     <div>
-      {/* <Header title="Personal Site" /> */}
       <Router>
         <Sidebar title="Personal Site" />
         <Container className="mt-4">
