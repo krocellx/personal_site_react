@@ -20,7 +20,7 @@ const NavIcon = styled(Link)`
 
 const SidebarNav = styled.nav`
   background: #15171c;
-  width: 200px;
+  width: 250px;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -60,7 +60,7 @@ const Sidebar = ({ title }) => {
             style={{
               maxWidth: '12rem',
               maxHeight: '2.5rem',
-              marginLeft: '8rem',
+              marginLeft: '10.5rem',
               paddingUp: '0.5rem',
             }}
           />

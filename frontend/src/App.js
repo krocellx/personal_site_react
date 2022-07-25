@@ -27,7 +27,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/image-search" element={<ImageSearch />} />
-            <Route path="/stock-search" element={<StockSearchPage />} />
+            <Route path="/stock-performance" element={<StockSearchPage />} />
           </Routes>
         </Container>
       </Router>
