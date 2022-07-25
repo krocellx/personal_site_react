@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Container, Row, Col, Button } from 'react-bootstrap';
 
-const Search = ({ ticker, setTicker, handleSubmit }) => {
+const Search = ({ ticker, setTicker, handleSubmit, benchmark }) => {
   return (
     <Container className="mt-4">
       <Row className="justify-content-center">
@@ -36,8 +36,7 @@ const Search = ({ ticker, setTicker, handleSubmit }) => {
               <Col xs={9}>
                 <Form.Control
                   type="text"
-                  value={ticker}
-                  onChange={(e) => setTicker(e.target.value)}
+                  value={benchmark}
                   placeholder="(Optional)"
                 />
               </Col>

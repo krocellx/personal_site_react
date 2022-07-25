@@ -11,6 +11,7 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050/api';
 
 const ImageSearch = () => {
   const [ticker, setTicker] = useState('');
+  const [benchmark, setBenchmark] = useState('');
   const [histPrice, setHistPrice] = useState({ symbol: 'empty' });
   const [loading, setLoading] = useState(false);
 
@@ -49,17 +50,19 @@ const ImageSearch = () => {
         <Spinner />
       ) : (
         <>
+          <h1>Performance Analysis</h1>
           <StockSearch
             ticker={ticker}
             setTicker={setTicker}
             handleSubmit={handleStockSearchSubmit}
+            benchmark={benchmark}
           />
 
           <Container className="mt-4">
             {histPrice.symbol !== 'empty' ? (
               <Charts data={histPrice} />
             ) : (
-              <Welcome />
+              <h3>Compare Stock with Benchmark</h3>
             )}
           </Container>
         </>
