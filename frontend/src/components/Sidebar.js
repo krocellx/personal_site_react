@@ -40,6 +40,7 @@ const navbarStyle = {
   display: 'flex',
   justifyCcontent: 'flex-start',
   alignItems: 'center',
+  paddingLeft: '0rem',
 };
 
 const Sidebar = ({ title }) => {
@@ -54,7 +55,15 @@ const Sidebar = ({ title }) => {
           <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
-          <Logo alt={title} style={{ maxWidth: '12rem', maxHeight: '2rem' }} />
+          <Logo
+            alt={title}
+            style={{
+              maxWidth: '12rem',
+              maxHeight: '2.5rem',
+              marginLeft: '10.5rem',
+              paddingUp: '0.5rem',
+            }}
+          />
         </Navbar>
         <SidebarNav sidebar={sidebar} onClick={showSidebar}>
           <SidebarWrap>

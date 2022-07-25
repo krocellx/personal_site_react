@@ -7,21 +7,71 @@ const Search = ({ ticker, setTicker, handleSubmit }) => {
       <Row className="justify-content-center">
         <Col xs={12} md={8} lg={6}>
           <Form onSubmit={handleSubmit}>
-            <Row>
+            <Form.Group
+              as={Row}
+              className="mb-2"
+              controlId="formPlaintextTicker"
+            >
+              <Form.Label column sm="3">
+                Ticker
+              </Form.Label>
               <Col xs={9}>
                 <Form.Control
                   type="text"
                   value={ticker}
                   onChange={(e) => setTicker(e.target.value)}
-                  placeholder="Search Stock Ticker..."
+                  placeholder="Search Ticker..."
                 />
               </Col>
-              <Col>
-                <Button variant="primary" type="submit">
-                  Search
-                </Button>
+            </Form.Group>
+
+            <Form.Group
+              as={Row}
+              className="mb-2"
+              controlId="formPlaintextBenchmark"
+            >
+              <Form.Label column sm="3">
+                Benchmark
+              </Form.Label>
+              <Col xs={9}>
+                <Form.Control
+                  type="text"
+                  value={ticker}
+                  onChange={(e) => setTicker(e.target.value)}
+                  placeholder="(Optional)"
+                />
               </Col>
-            </Row>
+            </Form.Group>
+
+            <Form.Group
+              as={Row}
+              className="mb-2"
+              controlId="formPlaintextStartDate"
+            >
+              <Form.Label column sm="3">
+                Start Date
+              </Form.Label>
+              <Col xs={9}>
+                <Form.Control type="date"></Form.Control>
+              </Col>
+            </Form.Group>
+
+            <Form.Group
+              as={Row}
+              className="mb-2"
+              controlId="formPlaintextEndDate"
+            >
+              <Form.Label column sm="3">
+                End Date
+              </Form.Label>
+              <Col xs={9}>
+                <Form.Control type="date"></Form.Control>
+              </Col>
+            </Form.Group>
+
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
           </Form>
         </Col>
       </Row>

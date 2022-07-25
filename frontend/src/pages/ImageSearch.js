@@ -7,7 +7,7 @@ import Search from '../components/Search';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050';
+const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050/api';
 
 const ImageSearch = () => {
   const [images, setImages] = useState([]);

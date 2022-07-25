@@ -19,8 +19,8 @@ export const SidebarData = [
     icon: <AiIcons.AiFillPicture />,
   },
   {
-    title: 'Stock Search',
-    path: '/stock-search',
+    title: 'Stock Performance',
+    path: '/stock-performance',
     icon: <AiIcons.AiOutlineStock />,
   },
   // {

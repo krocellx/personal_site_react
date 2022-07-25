@@ -20,5 +20,9 @@
     "python.formatting.provider": "black",
     "[python]":{
         "editor.formatOnSave": true,
-    }
+    },
+    "python.linting.pylintArgs": [
+        "--init-hook",
+        "os.path.join(os.path.dirname(os.path.dirname(__file__)),'api')"
+    ]
 }

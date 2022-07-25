@@ -1,10 +1,16 @@
 import os
-import requests
-from flask import Flask, request, jsonify, make_response
-from dotenv import load_dotenv
-from flask_cors import CORS
-from mongo_client import mongo_client
-from datetime import datetime
+
+import sys
+
+fpath = os.path.dirname(__file__)
+sys.path.append(fpath)
+
+import requests  # noqa: E402
+from flask import Flask, request, jsonify, make_response  # noqa: E402
+from dotenv import load_dotenv  # noqa: E402
+from flask_cors import CORS  # noqa: E402
+from mongo_client import mongo_client  # noqa: E402
+from datetime import datetime  # noqa: E402
 
 gallery = mongo_client.gallery
 images_collection = gallery.images
@@ -28,12 +34,12 @@ CORS(app)
 app.config["DEBUG"] = DEBUG
 
 
-@app.route("/")
+@app.route("/api/home")
 def home():
     return {"response": "Welcome to the API"}
 
 
-@app.route("/new-image")
+@app.route("/api/new-image")
 def new_image():
     word = request.args.get("query")
     headers = {"Accept-Version": "V1", "Authorization": "Client-ID " + UNSPLASH_KEY}
@@ -44,7 +50,7 @@ def new_image():
     return data
 
 
-@app.route("/images", methods=["GET", "POST"])
+@app.route("/api/images", methods=["GET", "POST"])
 def images():
     if request.method == "GET":
         # read images from the database
@@ -60,7 +66,7 @@ def images():
         return {"inserted_id": inserted_id}
 
 
-@app.route("/images/<image_id>", methods=["DELETE"])
+@app.route("/api/images/<image_id>", methods=["DELETE"])
 def images_delete(image_id):
     if request.method == "DELETE":
         # delete image from the database
@@ -72,7 +78,7 @@ def images_delete(image_id):
         return {"deleted_id": image_id}
 
 
-@app.route("/stock_price", methods=["GET"])
+@app.route("/api/stock_price", methods=["GET"])
 def stock_price():
     # FMP_HIST_URL = "https://financialmodelingprep.com/api/v3/historical-price-full/"
     ticker = request.args.get("ticker")

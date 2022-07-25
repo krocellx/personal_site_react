@@ -20,7 +20,6 @@ function App() {
 
   return (
     <div>
-      {/* <Header title="Personal Site" /> */}
       <Router>
         <Sidebar title="Personal Site" />
         <Container className="mt-4">
@@ -28,7 +27,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/image-search" element={<ImageSearch />} />
-            <Route path="/stock-search" element={<StockSearchPage />} />
+            <Route path="/stock-performance" element={<StockSearchPage />} />
           </Routes>
         </Container>
       </Router>
