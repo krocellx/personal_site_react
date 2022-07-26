@@ -1,8 +1,8 @@
 import { useState, useEffect, React } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
-import Welcome from '../components/Welcome';
 import StockSearch from '../components/StockSearch';
+import PerformanceTabs from '../components/PerformanceTabs';
 import Charts from '../components/Charts';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
@@ -60,7 +60,16 @@ const ImageSearch = () => {
 
           <Container className="mt-4">
             {histPrice.symbol !== 'empty' ? (
-              <Charts data={histPrice} />
+              <Container mb={2}>
+                <Row mb={2}>
+                  <Charts data={histPrice} />
+                </Row>
+                <Row mb={2}>
+                  <Col>
+                    <PerformanceTabs />
+                  </Col>
+                </Row>
+              </Container>
             ) : (
               <h3>Compare Stock with Benchmark</h3>
             )}
