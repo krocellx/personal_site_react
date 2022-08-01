@@ -17,17 +17,14 @@ const axisStyle = {
   fontSize: '100%',
   textAnchor: 'middle',
 };
-function Charts({ data }) {
+function ChartsExpand({ data }) {
   const price_data = data.historical;
-  console.log(price_data);
   return (
     <Container>
       <div>
-        <h4 className="text-center">Price</h4>
-        <ResponsiveContainer height={400} width="100%">
+        <h4>{data.symbol}</h4>
+        <ResponsiveContainer height={200} width="100%">
           <LineChart
-            width={1000}
-            height={400}
             data={price_data}
             margin={{
               top: 5,
@@ -36,7 +33,6 @@ function Charts({ data }) {
               bottom: 40,
             }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="date"
               style={axisStyle}
@@ -45,8 +41,6 @@ function Charts({ data }) {
               dx={20}
             />
             <YAxis dx={-20} style={axisStyle} />
-            <Tooltip />
-            <Legend align="right" verticalAlign="top" />
             <Line
               name={data.symbol}
               type="monotone"
@@ -60,4 +54,4 @@ function Charts({ data }) {
     </Container>
   );
 }
-export default Charts;
+export default ChartsExpand;

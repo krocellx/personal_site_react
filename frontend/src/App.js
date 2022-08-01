@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import ImageSearch from './pages/ImageSearch';
 import StockSearchPage from './pages/StockSearch';
+import ExperimentPage from './pages/Experiment';
 // import { Reports, ReportsOne, ReportsTwo, ReportsThree } from './pages/Reports';
 import { Container } from 'react-bootstrap';
 import Home from './pages/Home';
@@ -28,6 +29,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/image-search" element={<ImageSearch />} />
             <Route path="/stock-performance" element={<StockSearchPage />} />
+            <Route path="/experiment" element={<ExperimentPage />} />
           </Routes>
         </Container>
       </Router>

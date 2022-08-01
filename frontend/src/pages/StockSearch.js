@@ -42,7 +42,7 @@ const ImageSearch = () => {
       toast.error(error.message);
     }
 
-    setTicker('');
+    setTicker(ticker.toUpperCase());
   };
   return (
     <div>
