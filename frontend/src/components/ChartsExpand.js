@@ -1,16 +1,7 @@
 import '../css/styles.css';
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+import { Container } from 'react-bootstrap';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 const axisStyle = {
   fontFamily: 'sans-serif',

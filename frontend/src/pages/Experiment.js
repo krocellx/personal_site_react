@@ -667,24 +667,24 @@ const histPrice = {
   symbol: 'AAPL',
 };
 
-const data = [
-  {
-    impressoes: 200,
-    cliques: 100,
-  },
-  {
-    impressoes: 450,
-    cliques: 390,
-  },
-  {
-    impressoes: 1650,
-    cliques: 1157,
-  },
-  {
-    impressoes: 3594,
-    cliques: 3410,
-  },
-];
+// const data = [
+//   {
+//     impressoes: 200,
+//     cliques: 100,
+//   },
+//   {
+//     impressoes: 450,
+//     cliques: 390,
+//   },
+//   {
+//     impressoes: 1650,
+//     cliques: 1157,
+//   },
+//   {
+//     impressoes: 3594,
+//     cliques: 3410,
+//   },
+// ];
 
 const Experiment = () => {
   return <ChartsExpand data={histPrice} />;
