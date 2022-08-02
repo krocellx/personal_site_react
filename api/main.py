@@ -5,12 +5,15 @@ import sys
 fpath = os.path.dirname(__file__)
 sys.path.append(fpath)
 
+
 import requests  # noqa: E402
 from flask import Flask, request, jsonify, make_response  # noqa: E402
 from dotenv import load_dotenv  # noqa: E402
 from flask_cors import CORS  # noqa: E402
 from mongo_client import mongo_client  # noqa: E402
+import financial_data as fd  # noqa: E402
 from datetime import datetime  # noqa: E402
+
 
 gallery = mongo_client.gallery
 images_collection = gallery.images
@@ -80,22 +83,16 @@ def images_delete(image_id):
 
 @app.route("/api/stock_price", methods=["GET"])
 def stock_price():
-    # FMP_HIST_URL = "https://financialmodelingprep.com/api/v3/historical-price-full/"
+
     ticker = request.args.get("ticker")
-    url = FMP_HIST_URL + ticker.upper()
-    params = {"apikey": FMP_KEY}
-    response = requests.get(url=url, params=params)
-    if response.status_code == 200:
-        data = response.json()
-        # sort data
-        hist_price = data["historical"]
-        sorted_hist_price = sorted(
-            hist_price, key=lambda t: datetime.strptime(t["date"], "%Y-%m-%d")
-        )
-        data["historical"] = sorted_hist_price
-        return data
-    else:
-        data = make_response(response.json()["error"], response.status_code)
+
+    try:
+        data = fd.get_stock_price(ticker=ticker)
+    except ValueError as e:
+        print(e)
+        data = make_response(jsonify({"error": str(e)}), 404)
+    except Exception as e:
+        data = make_response(jsonify({"error": str(e)}), 404)
     return data
 
 
