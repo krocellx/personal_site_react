@@ -2,8 +2,8 @@ import '../css/styles.css';
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -17,19 +17,18 @@ const axisStyle = {
   fontSize: '100%',
   textAnchor: 'middle',
 };
-function Charts({ data }) {
-  // console.log(data);
-  const price_data = data.historical;
+function ReturnBarChart({ data }) {
+  console.log(data);
   // console.log(price_data);
   return (
     <Container>
       <div>
-        <h4 className="text-center">Price</h4>
+        <h4 className="text-center">Annual Return</h4>
         <ResponsiveContainer height={400} width="100%">
-          <LineChart
+          <BarChart
             width={1000}
             height={400}
-            data={price_data}
+            data={data}
             margin={{
               top: 5,
               right: 45,
@@ -37,9 +36,8 @@ function Charts({ data }) {
               bottom: 40,
             }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
             <XAxis
-              dataKey="date"
+              dataKey="year"
               style={axisStyle}
               angle="45"
               dy={20}
@@ -48,17 +46,11 @@ function Charts({ data }) {
             <YAxis dx={-20} style={axisStyle} />
             <Tooltip />
             <Legend align="right" verticalAlign="top" />
-            <Line
-              name={data.symbol}
-              type="monotone"
-              dataKey="close"
-              stroke="#8884d8"
-              dot={false}
-            />
-          </LineChart>
+            <Bar dataKey="annual_return" fill="#8884d8" />
+          </BarChart>
         </ResponsiveContainer>
       </div>
     </Container>
   );
 }
-export default Charts;
+export default ReturnBarChart;

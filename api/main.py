@@ -1,4 +1,5 @@
 import os
+from re import S
 
 import sys
 
@@ -12,6 +13,7 @@ from dotenv import load_dotenv  # noqa: E402
 from flask_cors import CORS  # noqa: E402
 from mongo_client import mongo_client  # noqa: E402
 import financial_data as fd  # noqa: E402
+import portfolio_analysis as pa  # noqa: E402
 from datetime import datetime  # noqa: E402
 
 
@@ -85,12 +87,39 @@ def images_delete(image_id):
 def stock_price():
 
     ticker = request.args.get("ticker")
+    start_date = request.args.get("startDate")
+    end_date = request.args.get("endDate")
 
     try:
-        data = fd.get_stock_price(ticker=ticker)
+        data = fd.get_stock_price(
+            ticker=ticker, start_date=start_date, end_date=end_date
+        )
     except ValueError as e:
         print(e)
         data = make_response(jsonify({"error": str(e)}), 404)
+    except Exception as e:
+        data = make_response(jsonify({"error": str(e)}), 404)
+    return data
+
+
+@app.route("/api/stock-performance", methods=["GET"])
+def stock_performance():
+    ticker = request.args.get("ticker")
+    benchmark = request.args.get("benchmark")
+    start_date = request.args.get("startDate")
+    end_date = request.args.get("endDate")
+
+    try:
+        performance_analysis = pa.Portfolio_Analytics(
+            ticker=ticker.upper(),
+            benchmark=benchmark.upper(),
+            start_date=start_date,
+            end_date=end_date,
+        )
+
+        data = make_response(
+            jsonify(performance_analysis.default_performance_analysis()), 200
+        )
     except Exception as e:
         data = make_response(jsonify({"error": str(e)}), 404)
     return data

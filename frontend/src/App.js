@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import ImageSearch from './pages/ImageSearch';
-import StockSearchPage from './pages/StockSearch';
+import PerformanceAnalysis from './pages/PerformanceAnalysis';
 import ExperimentPage from './pages/Experiment';
 // import { Reports, ReportsOne, ReportsTwo, ReportsThree } from './pages/Reports';
 import { Container } from 'react-bootstrap';
@@ -28,7 +28,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/image-search" element={<ImageSearch />} />
-            <Route path="/stock-performance" element={<StockSearchPage />} />
+            <Route
+              path="/stock-performance"
+              element={<PerformanceAnalysis />}
+            />
             <Route path="/experiment" element={<ExperimentPage />} />
           </Routes>
         </Container>

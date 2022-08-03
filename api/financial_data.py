@@ -54,7 +54,7 @@ def get_stock_price(ticker, start_date=None, end_date=None):
         return data
     else:
         data = response.json()["error"]
-        raise ValueError(data)
+        raise ValueError(ticker)
 
 
 if __name__ == "__main__":

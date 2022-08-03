@@ -1,3 +1,4 @@
 # Cache
 __pycache__
 example_data.json
+*.xlsx

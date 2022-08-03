@@ -1,7 +1,17 @@
 import React from 'react';
 import { Form, Container, Row, Col, Button } from 'react-bootstrap';
 
-const Search = ({ ticker, setTicker, handleSubmit, benchmark }) => {
+const Search = ({
+  ticker,
+  setTicker,
+  benchmark,
+  setBenchmark,
+  starDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  handleSubmit,
+}) => {
   return (
     <Container className="mt-4">
       <Row className="justify-content-center">
@@ -37,6 +47,7 @@ const Search = ({ ticker, setTicker, handleSubmit, benchmark }) => {
                 <Form.Control
                   type="text"
                   value={benchmark}
+                  onChange={(e) => setBenchmark(e.target.value)}
                   placeholder="(Optional)"
                 />
               </Col>
@@ -51,7 +62,10 @@ const Search = ({ ticker, setTicker, handleSubmit, benchmark }) => {
                 Start Date
               </Form.Label>
               <Col xs={9}>
-                <Form.Control type="date"></Form.Control>
+                <Form.Control
+                  type="date"
+                  onChange={(e) => setStartDate(e.target.value)}
+                ></Form.Control>
               </Col>
             </Form.Group>
 
@@ -64,7 +78,10 @@ const Search = ({ ticker, setTicker, handleSubmit, benchmark }) => {
                 End Date
               </Form.Label>
               <Col xs={9}>
-                <Form.Control type="date"></Form.Control>
+                <Form.Control
+                  type="date"
+                  onChange={(e) => setEndDate(e.target.value)}
+                ></Form.Control>
               </Col>
             </Form.Group>
 
