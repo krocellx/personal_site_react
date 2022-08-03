@@ -11,14 +11,7 @@ import ExperimentPage from './pages/Experiment';
 import { Container } from 'react-bootstrap';
 import Home from './pages/Home';
 
-const WEB_URL = process.env.REACT_APP_WEB_URL || 'http://localhost:3000/';
-
 function App() {
-  // ping the website to stay active in Heroku
-  setInterval(() => {
-    axios.get(`${WEB_URL}`);
-  }, 25 * 60 * 1000);
-
   return (
     <div>
       <Router>
