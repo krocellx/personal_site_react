@@ -1,4 +1,4 @@
-import { useState, useEffect, React } from 'react';
+import { useState, React } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import StockSearch from '../components/StockSearch';
@@ -14,7 +14,6 @@ const PerformanceAnalysis = () => {
   const [benchmark, setBenchmark] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [histPrice, setHistPrice] = useState({ symbol: 'empty' });
   const [returnData, setReturnData] = useState({ ticker: 'empty' });
   const [loading, setLoading] = useState(false);
 

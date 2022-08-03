@@ -1,5 +1,5 @@
 import { useState, useEffect, React } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import StockSearch from '../components/StockSearch';
 
@@ -11,7 +11,6 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050/api';
 
 const PerformanceAnalysis = () => {
   const [ticker, setTicker] = useState('');
-  const [benchmark, setBenchmark] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [histPrice, setHistPrice] = useState({ symbol: 'empty' });
