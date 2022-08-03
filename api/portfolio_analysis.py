@@ -66,7 +66,9 @@ class Portfolio_Analytics:
     def cal_performance_metric(self):
         # mean return
         monthly_return = (
-            self.ticker_data.groupby(["year", "month"])["adjClosePctChangePlusOne"]
+            self.ticker_data.groupby(["symbol", "year", "month"])[
+                "adjClosePctChangePlusOne"
+            ]
             .prod()
             .reset_index()
         )
@@ -74,17 +76,17 @@ class Portfolio_Analytics:
             monthly_return["year"].apply(str) + "-" + monthly_return["month"].apply(str)
         ).dt.strftime("%Y-%m")
 
-        monthly_return.columns = ["year", "month", "monthly_return"]
+        monthly_return.columns = ["symbol", "year", "month", "monthly_return"]
 
         monthly_return["monthly_return"] = monthly_return["monthly_return"] - 1
 
         yearly_return = (
-            self.ticker_data.groupby("year")["adjClosePctChangePlusOne"]
+            self.ticker_data.groupby(["symbol", "year"])["adjClosePctChangePlusOne"]
             .prod()
             .reset_index()
         )
 
-        yearly_return.columns = ["year", "annual_return"]
+        yearly_return.columns = ["symbol", "year", "annual_return"]
 
         yearly_return["annual_return"] = yearly_return["annual_return"] - 1
 

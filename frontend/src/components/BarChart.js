@@ -43,11 +43,11 @@ function ReturnBarChart({ data }) {
             <YAxis
               dx={-20}
               style={axisStyle}
-              tickFormatter={(tick) => `${tick * 100}%`}
+              tickFormatter={(tick) => `${(tick * 100).toFixed(0)}%`}
             />
             <Tooltip />
             <Legend align="right" verticalAlign="top" />
-            <Bar dataKey="annual_return" fill="#8884d8" />
+            <Bar name={data[0].symbol} dataKey="annual_return" fill="#8884d8" />
           </BarChart>
         </ResponsiveContainer>
       </div>

@@ -63,7 +63,7 @@ const PerformanceAnalysis = () => {
                 </Row>
               </Container>
             ) : (
-              <h3>Compare Stock with Benchmark</h3>
+              <h5>TODO: Compare Stock with Benchmark</h5>
             )}
           </Container>
         </>
