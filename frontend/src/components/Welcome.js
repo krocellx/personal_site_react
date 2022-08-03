@@ -11,7 +11,7 @@ const Welcome = () => (
         href="https://github.com/krocellx/personal_site_react"
         target="_blank"
       >
-        Learn more
+        GitHub
       </Button>
     </p>
   </Jumbotron>
