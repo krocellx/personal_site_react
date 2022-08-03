@@ -10,11 +10,13 @@ python-dotenv = "==0.20.0"
 flask-cors = "==3.0.10"
 pymongo = {extras = ["srv"], version = "*"}
 gunicorn = "==20.1.0"
+pandas = "*"
 
 [dev-packages]
 black = "==22.3.0"
 pylint = "==2.14.3"
 pycodestyle = "==2.8.0"
+xlwings = "*"
 
 [requires]
 python_version = "3.9"

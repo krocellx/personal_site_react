@@ -5,19 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import ImageSearch from './pages/ImageSearch';
-import StockSearchPage from './pages/StockSearch';
+import PerformanceAnalysis from './pages/PerformanceAnalysis';
+import ExperimentPage from './pages/Experiment';
 // import { Reports, ReportsOne, ReportsTwo, ReportsThree } from './pages/Reports';
 import { Container } from 'react-bootstrap';
 import Home from './pages/Home';
 
-const WEB_URL = process.env.REACT_APP_WEB_URL || 'http://localhost:3000/';
-
 function App() {
-  // ping the website to stay active in Heroku
-  setInterval(() => {
-    axios.get(`${WEB_URL}`);
-  }, 25 * 60 * 1000);
-
   return (
     <div>
       <Router>
@@ -27,7 +21,11 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/image-search" element={<ImageSearch />} />
-            <Route path="/stock-performance" element={<StockSearchPage />} />
+            <Route
+              path="/stock-performance"
+              element={<PerformanceAnalysis />}
+            />
+            <Route path="/experiment" element={<ExperimentPage />} />
           </Routes>
         </Container>
       </Router>
