@@ -89,15 +89,15 @@ class Portfolio_Analytics:
         yearly_return["annual_return"] = yearly_return["annual_return"] - 1
 
         self.performance_metric["monthly_return_mean"] = (
-            monthly_return["monthly_return"].mean().round(2)
+            monthly_return["monthly_return"].mean().round(4)
         )
 
         self.performance_metric["annual_return_mean"] = (
-            yearly_return["annual_return"].mean().round(2)
+            yearly_return["annual_return"].mean().round(4)
         )
 
-        self.monthly_return = monthly_return.round(2)
-        self.yearly_return = yearly_return.round(2)
+        self.monthly_return = monthly_return.round(4)
+        self.yearly_return = yearly_return.round(4)
 
         # sharp ratio
 

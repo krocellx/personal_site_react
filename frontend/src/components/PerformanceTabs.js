@@ -4,9 +4,10 @@ import Tabs from 'react-bootstrap/Tabs';
 import PerformanceTable from './PerformanceTables';
 import ReturnBarChart from './BarChart';
 
-function PerformanceTabs(data) {
-  const [key, setKey] = useState('home');
-  const annualReturn = data.data.chart_data.annual_return;
+function PerformanceTabs({ data }) {
+  const [key, setKey] = useState('Performance');
+  const annualReturn = data.chart_data.annual_return;
+  const performanceMetric = data.performance_metric;
   // setAnnualReturn(data.data.chart_data.annual_return);
   return (
     <Tabs
@@ -19,7 +20,7 @@ function PerformanceTabs(data) {
         <ReturnBarChart data={annualReturn} />
       </Tab>
       <Tab eventKey="Risk Measure" title="Risk Measure">
-        <PerformanceTable />
+        <PerformanceTable performanceMetric={performanceMetric} />
       </Tab>
       <Tab eventKey="contact" title="Contact">
         Other

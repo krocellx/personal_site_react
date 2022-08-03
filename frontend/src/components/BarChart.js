@@ -43,7 +43,11 @@ function ReturnBarChart({ data }) {
               dy={20}
               dx={20}
             />
-            <YAxis dx={-20} style={axisStyle} />
+            <YAxis
+              dx={-20}
+              style={axisStyle}
+              tickFormatter={(tick) => `${tick * 100}%`}
+            />
             <Tooltip />
             <Legend align="right" verticalAlign="top" />
             <Bar dataKey="annual_return" fill="#8884d8" />
