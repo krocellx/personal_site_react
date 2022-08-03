@@ -58,5 +58,6 @@ def get_stock_price(ticker, start_date=None, end_date=None):
 
 
 if __name__ == "__main__":
-    print(get_treasury_rate("2022-07-29"))
-    print(get_stock_price("fff"))
+    # print(get_treasury_rate("2022-07-29"))
+    # print(get_stock_price("fff"))
+    pass

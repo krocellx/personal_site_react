@@ -26,7 +26,6 @@ def insert_test_document():
     db = mongo_client.test
     test_collection = db.test_collection
     res = test_collection.insert_one({"name": "Harvey", "owner": True})
-    print(res)
 
 
 if __name__ == "__main__":

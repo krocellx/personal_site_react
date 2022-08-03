@@ -94,9 +94,6 @@ def stock_price():
         data = fd.get_stock_price(
             ticker=ticker, start_date=start_date, end_date=end_date
         )
-    except ValueError as e:
-        print(e)
-        data = make_response(jsonify({"error": str(e)}), 404)
     except Exception as e:
         data = make_response(jsonify({"error": str(e)}), 404)
     return data

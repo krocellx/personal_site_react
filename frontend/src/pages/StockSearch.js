@@ -38,7 +38,7 @@ const PerformanceAnalysis = () => {
       const res = await axios.get(
         `${API_URL}/stock_price?ticker=${ticker}&startDate=${startDate}&endDate=${endDate}`
       );
-      console.log(res.data);
+      // console.log(res.data);
       setHistPrice(res.data);
       toast.info(`Stock ${ticker} was found`);
     } catch (error) {

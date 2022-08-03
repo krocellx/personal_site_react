@@ -18,8 +18,6 @@ const axisStyle = {
   textAnchor: 'middle',
 };
 function ReturnBarChart({ data }) {
-  console.log(data);
-  // console.log(price_data);
   return (
     <Container>
       <div>
