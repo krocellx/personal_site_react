@@ -17,9 +17,9 @@ const axisStyle = {
   fontSize: '100%',
   textAnchor: 'middle',
 };
-function Charts({ data }) {
+function Charts({ ticker, benchmark }) {
   // console.log(data);
-  const price_data = data.historical;
+  const price_data = ticker.historical;
   // console.log(price_data);
   return (
     <Container>
@@ -29,7 +29,7 @@ function Charts({ data }) {
           <LineChart
             width={1000}
             height={400}
-            data={price_data}
+            // data={(price_data, benchmark.historical)}
             margin={{
               top: 5,
               right: 45,
@@ -39,6 +39,7 @@ function Charts({ data }) {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
+              allowDuplicatedCategory={false}
               dataKey="date"
               style={axisStyle}
               angle="45"
@@ -49,12 +50,21 @@ function Charts({ data }) {
             <Tooltip />
             <Legend align="right" verticalAlign="top" />
             <Line
-              name={data.symbol}
+              data={price_data}
+              name={ticker.symbol}
               type="monotone"
               dataKey="close"
               stroke="#8884d8"
               dot={false}
             />
+            {/* <Line
+              data={benchmark.historical}
+              name={benchmark.symbol}
+              type="monotone"
+              dataKey="close"
+              stroke="#8884d8"
+              dot={false}
+            /> */}
           </LineChart>
         </ResponsiveContainer>
       </div>

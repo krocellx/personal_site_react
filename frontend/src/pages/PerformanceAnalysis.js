@@ -54,7 +54,10 @@ const PerformanceAnalysis = () => {
             {returnData.ticker !== 'empty' ? (
               <Container mb={2}>
                 <Row mb={2}>
-                  <Charts data={returnData.ticker} />
+                  <Charts
+                    ticker={returnData.ticker}
+                    benchmark={returnData.benchmark}
+                  />
                 </Row>
                 <Row mb={2}>
                   <Col>
