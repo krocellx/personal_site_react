@@ -20,11 +20,12 @@ const PerformanceAnalysis = () => {
   const handleStockSearchSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await axios.get(
         `${API_URL}/stock-performance?ticker=${ticker}&benchmark=${benchmark}&startDate=${startDate}&endDate=${endDate}`
-        // `${API_URL}/stock_price?ticker=${ticker}&startDate=${'2022-07-28'}&endDate=${'2022-07-29'}`
       );
       setReturnData(res.data);
+      setLoading(false);
       toast.info(`Stock ${ticker} was found`);
     } catch (error) {
       console.log(error);
