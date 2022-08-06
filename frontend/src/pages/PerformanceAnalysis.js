@@ -25,13 +25,12 @@ const PerformanceAnalysis = () => {
         `${API_URL}/stock-performance?ticker=${ticker}&benchmark=${benchmark}&startDate=${startDate}&endDate=${endDate}`
       );
       setReturnData(res.data);
-      setLoading(false);
       toast.info(`Stock ${ticker} was found`);
     } catch (error) {
       console.log(error);
       toast.error(error.message);
     }
-
+    setLoading(false);
     setTicker(ticker.toUpperCase());
   };
   return (
@@ -54,7 +53,7 @@ const PerformanceAnalysis = () => {
           <Container className="mt-4">
             {returnData.ticker !== 'empty' ? (
               <Container mb={2}>
-                <Row mb={2}>
+                <Row>
                   <Charts
                     ticker={returnData.ticker}
                     benchmark={returnData.benchmark}

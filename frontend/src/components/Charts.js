@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Brush,
 } from 'recharts';
 
 const axisStyle = {
@@ -29,6 +30,7 @@ function Charts({ ticker, benchmark }) {
           <LineChart
             width={1000}
             height={400}
+            data={price_data}
             // data={(price_data, benchmark.historical)}
             margin={{
               top: 5,
@@ -50,21 +52,14 @@ function Charts({ ticker, benchmark }) {
             <Tooltip />
             <Legend align="right" verticalAlign="top" />
             <Line
-              data={price_data}
               name={ticker.symbol}
               type="monotone"
               dataKey="close"
               stroke="#8884d8"
               dot={false}
             />
-            {/* <Line
-              data={benchmark.historical}
-              name={benchmark.symbol}
-              type="monotone"
-              dataKey="close"
-              stroke="#8884d8"
-              dot={false}
-            /> */}
+
+            <Brush style={axisStyle} />
           </LineChart>
         </ResponsiveContainer>
       </div>
