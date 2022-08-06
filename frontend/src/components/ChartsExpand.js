@@ -1,7 +1,14 @@
 import '../css/styles.css';
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+  Brush,
+} from 'recharts';
 
 const axisStyle = {
   fontFamily: 'sans-serif',
@@ -33,12 +40,21 @@ function ChartsExpand({ data }) {
             />
             <YAxis dx={-20} style={axisStyle} />
             <Line
+              data={price_data}
               name={data.symbol}
               type="monotone"
               dataKey="close"
               stroke="#8884d8"
               dot={false}
             />
+            <Line
+              name={data.symbol}
+              type="monotone"
+              dataKey="close"
+              stroke="#8884d8"
+              dot={false}
+            />
+            <Brush style={axisStyle} recharts-brush-texts />
           </LineChart>
         </ResponsiveContainer>
       </div>
