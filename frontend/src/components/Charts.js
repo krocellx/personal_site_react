@@ -18,6 +18,12 @@ const axisStyle = {
   fontSize: '100%',
   textAnchor: 'middle',
 };
+
+const brushStyle = {
+  fontFamily: 'sans-serif',
+  fontSize: '20px',
+  textAnchor: 'middle',
+};
 function Charts({ ticker, benchmark }) {
   // console.log(data);
   const price_data = ticker.historical;
@@ -59,7 +65,7 @@ function Charts({ ticker, benchmark }) {
               dot={false}
             />
 
-            <Brush style={axisStyle} />
+            <Brush />
           </LineChart>
         </ResponsiveContainer>
       </div>
