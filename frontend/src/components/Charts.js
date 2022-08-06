@@ -19,11 +19,6 @@ const axisStyle = {
   textAnchor: 'middle',
 };
 
-const brushStyle = {
-  fontFamily: 'sans-serif',
-  fontSize: '20px',
-  textAnchor: 'middle',
-};
 function Charts({ ticker, benchmark }) {
   // console.log(data);
   const price_data = ticker.historical;
@@ -35,7 +30,7 @@ function Charts({ ticker, benchmark }) {
         <ResponsiveContainer height={400} width="100%">
           <LineChart
             width={1000}
-            height={400}
+            height={350}
             data={price_data}
             // data={(price_data, benchmark.historical)}
             margin={{
@@ -50,9 +45,10 @@ function Charts({ ticker, benchmark }) {
               allowDuplicatedCategory={false}
               dataKey="date"
               style={axisStyle}
-              angle="45"
-              dy={20}
-              dx={20}
+              angle="35"
+              dy={10}
+              dx={0}
+              tickFormatter={(tick) => `${String(tick).substring(2, 7)}`}
             />
             <YAxis dx={-20} style={axisStyle} />
             <Tooltip />
@@ -65,7 +61,7 @@ function Charts({ ticker, benchmark }) {
               dot={false}
             />
 
-            <Brush />
+            <Brush height={30} y={350} />
           </LineChart>
         </ResponsiveContainer>
       </div>
