@@ -66,8 +66,10 @@ def get_live_quote(ls_tickers, short=True):
     tickers = ",".join(ls_tickers).upper()
     url = FMP_ROOT_URL + f"v3/{quote_type}/{tickers}"
     params = {"apikey": FMP_KEY}
+
+    print(datetime.now().strftime(""))
     response = requests.get(url=url, params=params)
-    print(response.url)
+    print(datetime.now())
     if response.status_code == 200:
         data = response.json()
         if not (data):
