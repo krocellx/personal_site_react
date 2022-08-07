@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import StockSearch from '../components/StockSearch';
 import PerformanceTabs from '../components/PerformanceTabs';
-import Charts from '../components/Charts';
+import HistPriceLineChart from '../components/LineCharts';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 
@@ -54,10 +54,7 @@ const PerformanceAnalysis = () => {
             {returnData.ticker !== 'empty' ? (
               <Container mb={2}>
                 <Row>
-                  <Charts
-                    ticker={returnData.ticker}
-                    benchmark={returnData.benchmark}
-                  />
+                  <HistPriceLineChart ticker={returnData.ticker} />
                 </Row>
                 <Row mb={2}>
                   <Col>

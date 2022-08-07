@@ -19,18 +19,9 @@ const axisStyle = {
   textAnchor: 'middle',
 };
 
-function Charts({ ticker, benchmark }) {
-  function join({ t, a, s }) {
-    function format(m) {
-      let f = new Intl.DateTimeFormat('en', m);
-      console.log(f);
-      return f.format(t);
-    }
-    return a.map(format).join(s);
-  }
+function HistPriceLineChart({ ticker }) {
   // console.log(data);
   const price_data = ticker.historical;
-  const a = [{ month: 'short' }, { year: 'numeric' }];
   // console.log(price_data);
   return (
     <Container>
@@ -76,4 +67,4 @@ function Charts({ ticker, benchmark }) {
     </Container>
   );
 }
-export default Charts;
+export default HistPriceLineChart;

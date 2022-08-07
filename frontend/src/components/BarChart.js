@@ -18,9 +18,6 @@ const axisStyle = {
   textAnchor: 'middle',
 };
 function ReturnBarChart({ data }) {
-  // const formatNumToPercentage = (value) => {
-  //   return `${(value * 100).toFixed(0)}%`;
-  // };
   return (
     <Container>
       <div>
