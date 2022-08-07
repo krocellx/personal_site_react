@@ -39,18 +39,17 @@ const PerformanceAnalysis = () => {
         <Spinner />
       ) : (
         <>
-          <h1>Performance Analysis</h1>
-          <StockSearch
-            ticker={ticker}
-            setTicker={setTicker}
-            benchmark={benchmark}
-            setBenchmark={setBenchmark}
-            setStartDate={setStartDate}
-            setEndDate={setEndDate}
-            handleSubmit={handleStockSearchSubmit}
-          />
-
           <Container className="mt-4">
+            <h1>Performance Analysis</h1>
+            <StockSearch
+              ticker={ticker}
+              setTicker={setTicker}
+              benchmark={benchmark}
+              setBenchmark={setBenchmark}
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
+              handleSubmit={handleStockSearchSubmit}
+            />
             {returnData.ticker !== 'empty' ? (
               <Container mb={2}>
                 <Row>

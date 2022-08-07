@@ -1,64 +1,83 @@
 import '../css/styles.css';
-import React from 'react';
-import { Container } from 'react-bootstrap';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-  Brush,
-} from 'recharts';
+import React, { useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import TestChart from './TestChart';
 
-const axisStyle = {
-  fontFamily: 'sans-serif',
-  fontSize: '100%',
-  textAnchor: 'middle',
-};
-function ChartsExpand({ data }) {
-  const price_data = data.historical;
+function Experiment({ data }) {
+  useEffect(() => {
+    let timeoutId;
+    async function getLatestPrice() {
+      // const data = await getMinPrice();
+      // const price = data.price;
+      '';
+      timeoutId = setTimeout(getLatestPrice, 5000);
+    }
+    timeoutId = setTimeout(getLatestPrice, 5000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  });
   return (
-    <Container>
-      <div>
-        <h4>{data.symbol}</h4>
-        <ResponsiveContainer height={200} width="100%">
-          <LineChart
-            data={price_data}
-            margin={{
-              top: 5,
-              right: 45,
-              left: 20,
-              bottom: 40,
-            }}
-          >
-            <XAxis
-              dataKey="date"
-              style={axisStyle}
-              angle="45"
-              dy={20}
-              dx={20}
-            />
-            <YAxis dx={-20} style={axisStyle} />
-            <Line
-              data={price_data}
-              name={data.symbol}
-              type="monotone"
-              dataKey="close"
-              stroke="#8884d8"
-              dot={false}
-            />
-            <Line
-              name={data.symbol}
-              type="monotone"
-              dataKey="close"
-              stroke="#8884d8"
-              dot={false}
-            />
-            <Brush style={axisStyle} recharts-brush-texts />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+    <Container fluid>
+      {' '}
+      <Row xl={6} md={4} xs={2} style={{ height: '85vh' }}>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+        <Col>
+          <TestChart data={data.historical} />
+        </Col>
+      </Row>
     </Container>
   );
 }
-export default ChartsExpand;
+export default Experiment;
