@@ -1,5 +1,5 @@
 import React from 'react';
-import ChartsExpand from '../components/ChartsExpand';
+import Experiment from '../components/Experiment';
 
 const histPrice = {
   historical: [
@@ -686,8 +686,8 @@ const histPrice = {
 //   },
 // ];
 
-const Experiment = () => {
-  return <ChartsExpand data={histPrice} />;
+const ExperimentPage = () => {
+  return <Experiment data={histPrice} />;
 };
 
-export default Experiment;
+export default ExperimentPage;
