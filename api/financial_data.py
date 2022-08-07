@@ -1,3 +1,4 @@
+from multiprocessing import AuthenticationError
 from multiprocessing.sharedctypes import Value
 import os
 
@@ -54,10 +55,34 @@ def get_stock_price(ticker, start_date=None, end_date=None):
         return data
     else:
         data = response.json()["error"]
-        raise ValueError(ticker)
+        raise ValueError(data)
+
+
+def get_live_quote(ls_tickers, short=True):
+    """get live quote for list of"""
+
+    quote_type = "quote-short" if short else "quote"
+    error_msg = ""
+    tickers = ",".join(ls_tickers).upper()
+    url = FMP_ROOT_URL + f"v3/{quote_type}/{tickers}"
+    params = {"apikey": FMP_KEY}
+    response = requests.get(url=url, params=params)
+    print(response.url)
+    if response.status_code == 200:
+        data = response.json()
+        if not (data):
+            raise ValueError("No result found for tickers " + str(tickers) + error_msg)
+
+        return data
+    elif response.status_code == 403:
+        raise AuthenticationError("Incorrect Key")
+    else:
+        data = response.json()["error"]
+        raise ValueError(data)
 
 
 if __name__ == "__main__":
     # print(get_treasury_rate("2022-07-29"))
     # print(get_stock_price("fff"))
+    print(get_live_quote(["aapl", "spy"]))
     pass
