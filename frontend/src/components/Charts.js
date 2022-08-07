@@ -20,8 +20,17 @@ const axisStyle = {
 };
 
 function Charts({ ticker, benchmark }) {
+  function join({ t, a, s }) {
+    function format(m) {
+      let f = new Intl.DateTimeFormat('en', m);
+      console.log(f);
+      return f.format(t);
+    }
+    return a.map(format).join(s);
+  }
   // console.log(data);
   const price_data = ticker.historical;
+  const a = [{ month: 'short' }, { year: 'numeric' }];
   // console.log(price_data);
   return (
     <Container>
@@ -45,10 +54,9 @@ function Charts({ ticker, benchmark }) {
               allowDuplicatedCategory={false}
               dataKey="date"
               style={axisStyle}
-              angle="35"
+              angle="20"
               dy={10}
               dx={0}
-              tickFormatter={(tick) => `${String(tick).substring(2, 7)}`}
             />
             <YAxis dx={-20} style={axisStyle} />
             <Tooltip />
