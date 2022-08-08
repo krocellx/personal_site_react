@@ -1,3 +1,4 @@
+from multiprocessing import AuthenticationError
 from multiprocessing.sharedctypes import Value
 import os
 
@@ -54,10 +55,87 @@ def get_stock_price(ticker, start_date=None, end_date=None):
         return data
     else:
         data = response.json()["error"]
-        raise ValueError(ticker)
+        raise ValueError(data)
+
+
+def get_live_quote(ls_tickers: list, short: bool = True) -> dict:
+    """get live quote for list of"""
+
+    quote_type = "quote-short" if short else "quote"
+    error_msg = ""
+    tickers = ",".join(ls_tickers).upper()
+    url = FMP_ROOT_URL + f"v3/{quote_type}/{tickers}"
+    params = {"apikey": FMP_KEY}
+
+    current_time = datetime.now().strftime("%Y-%m-%d, %H:%M:%S")
+    response = requests.get(url=url, params=params)
+    print(datetime.now())
+    if response.status_code == 200:
+        data = response.json()
+        if not (data):
+            raise ValueError("No result found for tickers " + str(tickers) + error_msg)
+        # add time stemp in the list
+        data = {"time": current_time, "quotes": data}
+        return data
+    elif response.status_code == 403:
+        raise AuthenticationError("Incorrect Key")
+    else:
+        data = response.json()["error"]
+        raise ValueError(data)
+
+
+def get_live_quote(ls_tickers: list, short: bool = True) -> dict:
+    """get live quote for list of"""
+
+    quote_type = "quote-short" if short else "quote"
+    error_msg = ""
+    tickers = ",".join(ls_tickers).upper()
+    url = FMP_ROOT_URL + f"v3/{quote_type}/{tickers}"
+    params = {"apikey": FMP_KEY}
+
+    current_time = datetime.now().strftime("%Y-%m-%d, %H:%M:%S")
+    response = requests.get(url=url, params=params)
+    print(datetime.now())
+    if response.status_code == 200:
+        data = response.json()
+        if not (data):
+            raise ValueError("No result found for tickers " + str(tickers) + error_msg)
+        # add time stemp in the list
+        data = {"time": current_time, "quotes": data}
+        return data
+    elif response.status_code == 403:
+        raise AuthenticationError("Incorrect Key")
+    else:
+        data = response.json()["error"]
+        raise ValueError(data)
+
+
+def get_intra_day_historical_price(ticker: str, interval: str):
+    """get intraday qutote"""
+
+    # validate interval
+    if not (interval.lower() in ["1min", "5min", "15min", "30min", "1hour", "4hour"]):
+        raise ValueError("Invalid interval: " + interval)
+    error_msg = ""
+    url = FMP_ROOT_URL + f"v3/historical-chart/{interval}/{ticker}"
+    params = {"apikey": FMP_KEY}
+    response = requests.get(url=url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()
+        if not (data):
+            raise ValueError("No result found for tickers " + str(ticker) + error_msg)
+        return data
+    elif response.status_code == 403:
+        raise AuthenticationError("Incorrect Key")
+    else:
+        data = response.json()["error"]
+        raise ValueError(data)
+    pass
 
 
 if __name__ == "__main__":
     # print(get_treasury_rate("2022-07-29"))
     # print(get_stock_price("fff"))
+    print(get_live_quote(["aapl", "spy"]))
     pass
