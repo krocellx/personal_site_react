@@ -1,1 +1,1 @@
-Personal Websit using React and Python.
+Personal Website using React and Python.
