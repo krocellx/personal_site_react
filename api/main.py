@@ -128,7 +128,19 @@ def stock_quote():
     ls_ticker = tickers.split(",")
     try:
         data = fd.get_live_quote(ls_ticker)
-        print(data)
+        data = make_response(jsonify(data), 200)
+
+    except Exception as e:
+        data = make_response(jsonify({"error": str(e)}), 404)
+    return data
+
+
+@app.route("/api/intra-day-historical-prices", methods=["GET"])
+def intr_day_historical_prices():
+    ticker = request.args.get("ticker")
+    interval = request.args.get("interval")
+    try:
+        data = fd.get_intra_day_historical_price(ticker, interval)
         data = make_response(jsonify(data), 200)
 
     except Exception as e:
