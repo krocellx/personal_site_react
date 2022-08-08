@@ -16,7 +16,7 @@ function App() {
     <div>
       <Router>
         <Sidebar title="Personal Site" />
-        <Container className="mt-4">
+        <Container fluid className="mt-4">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />

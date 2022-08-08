@@ -1,4 +1,5 @@
 import Table from 'react-bootstrap/Table';
+import formatNumToPercentage from '../utility/formatter.js';
 
 function PerformanceTable({ performanceMetric }) {
   return (
@@ -12,14 +13,12 @@ function PerformanceTable({ performanceMetric }) {
       <tbody>
         <tr>
           <td>Mean Return (Annual)</td>
-          <td>
-            {(performanceMetric.annual_return_mean * 100).toFixed(2) + '%'}
-          </td>
+          <td>{formatNumToPercentage(performanceMetric.annual_return_mean)}</td>
         </tr>
         <tr>
           <td>Mean Return (Monthly)</td>
           <td>
-            {(performanceMetric.monthly_return_mean * 100).toFixed(2) + '%'}
+            {formatNumToPercentage(performanceMetric.monthly_return_mean)}
           </td>
         </tr>
       </tbody>

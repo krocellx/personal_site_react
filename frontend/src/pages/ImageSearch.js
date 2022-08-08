@@ -87,14 +87,14 @@ const ImageSearch = () => {
         <Spinner />
       ) : (
         <>
-          <Search
-            word={word}
-            setWord={setWord}
-            handleSubmit={handleSearchSubmit}
-          />
           <Container className="mt-4">
+            <Search
+              word={word}
+              setWord={setWord}
+              handleSubmit={handleSearchSubmit}
+            />
             {images.length ? (
-              <Row xs={1} md={2} lg={3}>
+              <Row xs={1} md={2} lg={3} className="mt-4">
                 {images.map((image, i) => (
                   <Col key={i} className="pb-3">
                     <ImageCard

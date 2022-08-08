@@ -10,6 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import formatNumToPercentage from '../utility/formatter.js';
 
 const axisStyle = {
   fontFamily: 'sans-serif',
@@ -33,19 +34,13 @@ function ReturnBarChart({ data }) {
               bottom: 40,
             }}
           >
-            <XAxis
-              dataKey="year"
-              style={axisStyle}
-              angle="45"
-              dy={20}
-              dx={20}
-            />
+            <XAxis dataKey="year" style={axisStyle} angle="1" dy={0} dx={0} />
             <YAxis
               dx={-20}
               style={axisStyle}
-              tickFormatter={(tick) => `${(tick * 100).toFixed(0)}%`}
+              tickFormatter={(tick) => formatNumToPercentage(tick)}
             />
-            <Tooltip />
+            <Tooltip formatter={(value) => formatNumToPercentage(value)} />
             <Legend align="right" verticalAlign="top" />
             <Bar name={data[0].symbol} dataKey="annual_return" fill="#8884d8" />
           </BarChart>
