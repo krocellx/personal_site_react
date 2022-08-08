@@ -58,7 +58,7 @@ def get_stock_price(ticker, start_date=None, end_date=None):
         raise ValueError(data)
 
 
-def get_live_quote(ls_tickers, short=True):
+def get_live_quote(ls_tickers: list, short: bool = True) -> dict:
     """get live quote for list of"""
 
     quote_type = "quote-short" if short else "quote"
@@ -67,14 +67,15 @@ def get_live_quote(ls_tickers, short=True):
     url = FMP_ROOT_URL + f"v3/{quote_type}/{tickers}"
     params = {"apikey": FMP_KEY}
 
-    print(datetime.now().strftime(""))
+    current_time = datetime.now().strftime("%Y-%m-%d, %H:%M:%S")
     response = requests.get(url=url, params=params)
     print(datetime.now())
     if response.status_code == 200:
         data = response.json()
         if not (data):
             raise ValueError("No result found for tickers " + str(tickers) + error_msg)
-
+        # add time stemp in the list
+        data = {"time": current_time, "quotes": data}
         return data
     elif response.status_code == 403:
         raise AuthenticationError("Incorrect Key")
