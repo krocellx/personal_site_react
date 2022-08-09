@@ -12,17 +12,17 @@ export const SidebarData = [
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
-
-  {
-    title: 'Image Search',
-    path: '/image-search',
-    icon: <AiIcons.AiFillPicture />,
-  },
   {
     title: 'Stock Performance',
     path: '/stock-performance',
     icon: <AiIcons.AiOutlineStock />,
   },
+  {
+    title: 'Image Search',
+    path: '/image-search',
+    icon: <AiIcons.AiFillPicture />,
+  },
+
   {
     title: 'Experiment',
     path: '/experiment',
