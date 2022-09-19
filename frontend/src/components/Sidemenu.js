@@ -1,115 +1,67 @@
 import React, { useState } from 'react';
-import {
-  Offcanvas,
-  NavDropdown,
-  Navbar,
-  Nav,
-  Form,
-  Container,
-  Button,
-  Card,
-  Row,
-  Col,
-  Collapse,
-  ListGroup,
-} from 'react-bootstrap';
+import { Nav, Collapse, Navbar } from 'react-bootstrap';
 import styled from 'styled-components';
-import SidebarMenu from 'react-bootstrap-sidebar-menu';
-import { EventKey } from '@restart/ui/types';
+
 import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import '../css/styles.css';
 import * as FaIcons from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 
-const NavIcon = styled(Link)`
-  margin-left: 2rem;
-  font-size: 2rem;
-  height: 80px;
+const NavIcon = styled(Nav.Item)`
+  color: #e1e9fc;
+  margin-top: 5px;
   display: flex;
-  justify-content: flex-start;
+  margin-bottom: 3px;
+  justify-content: space-between;
   align-items: center;
+  padding: 13px;
+  list-style: none;
+  height: 60px;
+  text-decoration: none;
+  font-size: 2rem;
 `;
+
+const SidebarWrap = styled.div`
+  width: 100%;
+`;
+
+const SidebarNav = styled.nav`
+  background: #15171c;
+  height: 100vh;
+  justify-content: center;
+  width: 250px;
+`;
+const navbarStyle = {
+  backgroundColor: '#15171c',
+  display: 'flex',
+  justifyCcontent: 'flex-start',
+  alignItems: 'center',
+  padding: '0rem',
+};
+
 const Sidemenu = () => {
   const [open, setOpen] = useState(true);
   return (
     <>
-      <Row>
-        {/* <Col className="col-auto">
-          <ListGroup horizontal={false} className="text-truncate">
-            <ListGroup.Item action>{SidebarData[0].icon}</ListGroup.Item>
-            <ListGroup.Item>{SidebarData[1].icon}</ListGroup.Item>
-          </ListGroup>
-        </Col> */}
-        <Col className="col-auto">
-          {/* <Button
-            onClick={() => setOpen(!open)}
-            aria-controls="example-collapse-text"
-            aria-expanded={open}
-          >
-            click
-          </Button> */}
-          <div id="responsive-side-menu">
-            <Collapse in={open} dimension="width">
-              {/* <div id="test"> */}
-              <ListGroup
-                horizontal={false}
-                className="text-truncate"
-                id="test"
-                variant="flush"
+      <Navbar id="responsive-side-menu" style={navbarStyle} sticky="top">
+        <Collapse in={!open} dimension="width">
+          <SidebarWrap>
+            <SidebarNav className="text-truncate">
+              <NavIcon
+                onClick={() => setOpen(!open)}
+                aria-controls="example-collapse-text"
+                aria-expanded={open}
               >
-                {/* <NavIcon to="#"> */}
-                <ListGroup.Item
-                  onClick={() => setOpen(!open)}
-                  aria-controls="example-collapse-text"
-                  aria-expanded={open}
-                  id="test"
-                >
-                  <FaIcons.FaBars />
-                </ListGroup.Item>
-                {/* </NavIcon> */}
-                <ListGroup.Item action>
-                  {SidebarData[0].icon} {SidebarData[0].title}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  {SidebarData[1].icon}
-                  {SidebarData[1].title}
-                </ListGroup.Item>
-              </ListGroup>
-              {/* </div> */}
-            </Collapse>
-          </div>
-        </Col>
-        <Col>
-          <Navbar collapseOnSelect expand={false} bg="dark" variant="dark">
-            <Container fluid></Container>
-          </Navbar>
+                <FaIcons.FaBars />
+              </NavIcon>
 
-          <Navbar>
-            <Nav>
-              {/* {SidebarData.map((item, index) => {
-                  return <SubMenu item={item} key={index} />;
-                })} */}
-              <Nav.Item>{SidebarData[0].icon}</Nav.Item>
-            </Nav>
-          </Navbar>
-        </Col>
-        {/* <Col>
-          {' '}
-          <SidebarMenu>
-            <SidebarMenu.Collapse>
-              <SidebarMenu.Toggle />
-
-              <SidebarMenu.Body>
-                <SidebarMenu.Nav>
-                  {SidebarData[1].icon}
-                  {SidebarData[1].title}
-                </SidebarMenu.Nav>
-              </SidebarMenu.Body>
-            </SidebarMenu.Collapse>
-          </SidebarMenu>
-        </Col> */}
-      </Row>
+              {SidebarData.map((item, index) => {
+                return <SubMenu item={item} key={index} />;
+              })}
+            </SidebarNav>
+          </SidebarWrap>
+        </Collapse>
+      </Navbar>
     </>
   );
 };

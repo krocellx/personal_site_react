@@ -5,16 +5,16 @@
 .recharts-brush-texts { font-size: 0px; }
 
 /* #responsive-side-menu {
-  width: 180px;
+  height: 100%
 } */
 #responsive-side-menu .collapse:not(.show)  {
   display: block;
-  width: 40px !important;
+  width: 58px !important;
   overflow: hidden;
   }
 
  #responsive-side-menu .collapsing.collapse-horizontal {
-  width: 40px !important;
+  width: 58px ;
 }
 
 #test {
