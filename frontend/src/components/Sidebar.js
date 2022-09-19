@@ -10,23 +10,24 @@ import { ReactComponent as Logo } from '../images/logo.svg';
 import { IconContext } from 'react-icons/lib';
 
 const NavIcon = styled(Link)`
-  margin-left: 2rem;
-  font-size: 2rem;
+  margin-left: 20px;
+  // font-size: 1rem;
   height: 80px;
   display: flex;
+  // padding:20px
   justify-content: flex-start;
   align-items: center;
 `;
 
 const SidebarNav = styled.nav`
   background: #15171c;
-  width: 250px;
+  width: ${({ sidebar }) => (sidebar ? '250px' : '55px')};
   height: 100vh;
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 0;
-  left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
+  top: 70px;
+  left: 0;
   transition: 350ms;
   z-index: 10;
 `;
@@ -51,7 +52,7 @@ const Sidebar = ({ title }) => {
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
-        <Navbar style={navbarStyle} variant="light">
+        <Navbar style={navbarStyle} variant="light" fixed="top">
           <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
@@ -65,11 +66,15 @@ const Sidebar = ({ title }) => {
             }}
           />
         </Navbar>
-        <SidebarNav sidebar={sidebar} onClick={showSidebar}>
+        <SidebarNav
+          sidebar={sidebar}
+          // onClick={showSidebar}
+          className="text-truncate"
+        >
           <SidebarWrap>
-            <NavIcon to="#">
+            {/* <NavIcon to="#">
               <AiIcons.AiOutlineClose onClick={showSidebar} />
-            </NavIcon>
+            </NavIcon> */}
             {SidebarData.map((item, index) => {
               return <SubMenu item={item} key={index} />;
             })}
