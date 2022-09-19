@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Nav } from 'react-bootstrap';
 
-const SidebarLink = styled(Link)`
+const SidebarLink = styled(Nav.Link)`
   display: flex;
   color: #e1e9fc;
   justify-content: space-between;
@@ -43,11 +44,10 @@ const SubMenu = ({ item }) => {
   const showSubnav = () => setSubnav(!subnav);
 
   return (
-    <>
-      <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
+    <Nav.Item>
+      <SidebarLink as={Link} to={item.path} onClick={item.subNav && showSubnav}>
         <div>
-          {item.icon}
-          <SidebarLabel>{item.title}</SidebarLabel>
+          {item.icon} <SidebarLabel>{item.title}</SidebarLabel>
         </div>
         <div>
           {item.subNav && subnav
@@ -66,7 +66,7 @@ const SubMenu = ({ item }) => {
             </DropdownLink>
           );
         })}
-    </>
+    </Nav.Item>
   );
 };
 

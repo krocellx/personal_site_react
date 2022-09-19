@@ -3,3 +3,20 @@
   text-align: center;
 }
 .recharts-brush-texts { font-size: 0px; }
+
+/* #responsive-side-menu {
+  height: 100%
+} */
+#responsive-side-menu .collapse:not(.show)  {
+  display: block;
+  width: 58px !important;
+  overflow: hidden;
+  }
+
+ #responsive-side-menu .collapsing.collapse-horizontal {
+  width: 58px ;
+}
+
+#test {
+  color:#15171c
+}

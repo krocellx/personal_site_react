@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import { SidebarData } from './SidebarData';
-import SubMenu from './SubMenu';
-import { ReactComponent as Logo } from '../images/logo.svg';
+import { SidebarData } from '../components/SidebarData';
+import SubMenu from '../components/SubMenu';
 import { IconContext } from 'react-icons/lib';
 
 const NavIcon = styled(Link)`
@@ -34,15 +31,6 @@ const SidebarNav = styled.nav`
 const SidebarWrap = styled.div`
   width: 100%;
 `;
-const navbarStyle = {
-  backgroundColor: '#15171c',
-  height: '70px',
-  display: 'flex',
-  justifyCcontent: 'flex-start',
-  alignItems: 'center',
-  paddingLeft: '0rem',
-};
-
 const Sidebar = ({ title }) => {
   const [sidebar, setSidebar] = useState(false);
 
@@ -51,7 +39,7 @@ const Sidebar = ({ title }) => {
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
-        <Navbar style={navbarStyle} variant="light">
+        {/* <Navbar style={navbarStyle} variant="light">
           <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
@@ -64,7 +52,10 @@ const Sidebar = ({ title }) => {
               paddingUp: '0.5rem',
             }}
           />
-        </Navbar>
+        </Navbar> */}
+        {/* <NavIcon to="#">
+          <FaIcons.FaBars onClick={showSidebar} />
+        </NavIcon> */}
         <SidebarNav sidebar={sidebar} onClick={showSidebar}>
           <SidebarWrap>
             <NavIcon to="#">
