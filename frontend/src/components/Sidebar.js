@@ -51,7 +51,7 @@ const Sidebar = ({ title }) => {
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
-        <Navbar style={navbarStyle} variant="light">
+        {/* <Navbar style={navbarStyle} variant="light">
           <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
@@ -64,7 +64,10 @@ const Sidebar = ({ title }) => {
               paddingUp: '0.5rem',
             }}
           />
-        </Navbar>
+        </Navbar> */}
+        {/* <NavIcon to="#">
+          <FaIcons.FaBars onClick={showSidebar} />
+        </NavIcon> */}
         <SidebarNav sidebar={sidebar} onClick={showSidebar}>
           <SidebarWrap>
             <NavIcon to="#">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Nav } from 'react-bootstrap';
 
 const SidebarLink = styled(Link)`
   display: flex;
@@ -43,7 +44,7 @@ const SubMenu = ({ item }) => {
   const showSubnav = () => setSubnav(!subnav);
 
   return (
-    <>
+    <Nav.Item>
       <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
         <div>
           {item.icon}
@@ -66,7 +67,7 @@ const SubMenu = ({ item }) => {
             </DropdownLink>
           );
         })}
-    </>
+    </Nav.Item>
   );
 };
 
