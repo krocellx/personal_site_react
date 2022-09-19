@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Jumbotron } from 'react-bootstrap';
 
 const Welcome = () => (
-  <div class="p-5 mb-4 bg-light rounded-3">
-    <div class="container-fluid py-5">
+  <div class="container-fluid bg-light text-dark p-5">
+    <div class="container bg-light p-5">
       <h1>Harvey Xie's personal Site</h1>
       <p>This is simple application using React and Python.</p>
       <h5>Current functionalities (via sidebar):</h5>
