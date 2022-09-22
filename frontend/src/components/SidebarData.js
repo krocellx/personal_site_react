@@ -18,6 +18,11 @@ export const SidebarData = [
     icon: <AiIcons.AiOutlineStock />,
   },
   {
+    title: 'Portfolio Construction',
+    path: '/portfolio-construction',
+    icon: <AiIcons.AiFillPieChart />,
+  },
+  {
     title: 'Image Search',
     path: '/image-search',
     icon: <AiIcons.AiFillPicture />,
