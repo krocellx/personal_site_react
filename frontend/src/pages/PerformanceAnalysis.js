@@ -40,7 +40,7 @@ const PerformanceAnalysis = () => {
       ) : (
         <>
           <Container className="mt-4">
-            <h1>Performance Analysis</h1>
+            <h1>Equity Research Space</h1>
             <StockSearch
               ticker={ticker}
               setTicker={setTicker}

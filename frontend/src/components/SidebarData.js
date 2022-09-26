@@ -13,8 +13,8 @@ export const SidebarData = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
-    title: 'Stock Performance',
-    path: '/stock-performance',
+    title: 'Equity Research',
+    path: '/equity-research',
     icon: <AiIcons.AiOutlineStock />,
   },
   {
