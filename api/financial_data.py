@@ -6,6 +6,7 @@ import requests  # noqa: E402
 from dotenv import load_dotenv  # noqa: E402
 from flask import Flask, request, jsonify, make_response  # noqa: E402
 from datetime import datetime  # noqa: E402
+import utility as u  # noqa: E402
 
 load_dotenv(dotenv_path="./.env.local")
 
@@ -150,7 +151,8 @@ def get_company_financial_ratios(ticker: str, period: str = "annual", limit: int
         data = response.json()
         if not (data):
             raise ValueError("No result found for tickers " + str(ticker) + error_msg)
-        return data
+
+        return u.transform_fundamental_list_to_dict(data)
     elif response.status_code == 403:
         raise AuthenticationError("Incorrect Key")
     else:
@@ -161,5 +163,5 @@ def get_company_financial_ratios(ticker: str, period: str = "annual", limit: int
 if __name__ == "__main__":
     # print(get_treasury_rate("2022-07-29"))
     # print(get_stock_price("fff"))
-    print(get_company_financial_ratios("AAPL", period="quarter"))
+    a = get_company_financial_ratios("AAPL", period="quarter", limit=2)
     pass
