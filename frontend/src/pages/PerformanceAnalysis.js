@@ -26,15 +26,10 @@ const PerformanceAnalysis = () => {
         `${API_URL}/stock-performance?ticker=${ticker}&benchmark=${benchmark}&startDate=${startDate}&endDate=${endDate}`
       );
       setReturnData(res.data);
-      toast.info(`Stock ${ticker} was found`);
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-    }
-    try {
-      setLoading(true);
-      const res = await axios.get(`${API_URL}/company-ratios?ticker=${ticker}`);
-      setfundamentalData(res.data);
+      const res_fun = await axios.get(
+        `${API_URL}/company-ratios?ticker=${ticker.toUpperCase()}`
+      );
+      setfundamentalData(res_fun.data);
       toast.info(`Stock ${ticker} was found`);
     } catch (error) {
       console.log(error);
@@ -68,8 +63,8 @@ const PerformanceAnalysis = () => {
                 <Row mb={2}>
                   <Col>
                     <PerformanceTabs
-                      data={returnData}
-                      fundamentalData={setfundamentalData}
+                      returnData={returnData}
+                      fundamentalData={fundamentalData}
                     />
                   </Col>
                 </Row>

@@ -21,7 +21,7 @@ function PerformanceTabs({ returnData, fundamentalData }) {
         <ReturnBarChart data={annualReturn} />
       </Tab>
       <Tab eventKey="Fundamental" title="Fundamental">
-        <BarChartFundamentals performanceMetric={fundamentalData} />
+        <BarChartFundamentals data={fundamentalData} />
       </Tab>
       <Tab eventKey="Risk Measure" title="Risk Measure">
         <PerformanceTable performanceMetric={performanceMetric} />

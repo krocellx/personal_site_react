@@ -1,9 +1,9 @@
 import Table from 'react-bootstrap/Table';
-import formatNumToPercentage from '../utility/formatter.js';
+import { formatNumToPercentage } from '../utility/formatter.js';
 
 function PerformanceTable({ performanceMetric }) {
   return (
-    <Table striped bordered hover variant="dark">
+    <Table striped bordered hover>
       <thead>
         <tr>
           <th>Measure</th>
