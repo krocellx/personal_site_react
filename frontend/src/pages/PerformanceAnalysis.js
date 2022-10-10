@@ -15,6 +15,7 @@ const PerformanceAnalysis = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [returnData, setReturnData] = useState({ ticker: 'empty' });
+  const [fundamentalData, setfundamentalData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handleStockSearchSubmit = async (e) => {
@@ -25,6 +26,15 @@ const PerformanceAnalysis = () => {
         `${API_URL}/stock-performance?ticker=${ticker}&benchmark=${benchmark}&startDate=${startDate}&endDate=${endDate}`
       );
       setReturnData(res.data);
+      toast.info(`Stock ${ticker} was found`);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+    try {
+      setLoading(true);
+      const res = await axios.get(`${API_URL}/company-ratios?ticker=${ticker}`);
+      setfundamentalData(res.data);
       toast.info(`Stock ${ticker} was found`);
     } catch (error) {
       console.log(error);
@@ -57,7 +67,10 @@ const PerformanceAnalysis = () => {
                 </Row>
                 <Row mb={2}>
                   <Col>
-                    <PerformanceTabs data={returnData} />
+                    <PerformanceTabs
+                      data={returnData}
+                      fundamentalData={setfundamentalData}
+                    />
                   </Col>
                 </Row>
               </Container>

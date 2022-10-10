@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import PerformanceTable from './PerformanceTables';
-import ReturnBarChart from './BarChart';
+import BarChartFundamentals from './BarChartFundamentals';
+import ReturnBarChart from './AnnualReturnBarChart';
 
-function PerformanceTabs({ data }) {
+function PerformanceTabs({ returnData, fundamentalData }) {
   const [key, setKey] = useState('Performance');
-  const annualReturn = data.chart_data.annual_return;
-  const performanceMetric = data.performance_metric;
+  const annualReturn = returnData.chart_data.annual_return;
+  const performanceMetric = returnData.performance_metric;
   // setAnnualReturn(data.data.chart_data.annual_return);
   return (
     <Tabs
@@ -19,11 +20,11 @@ function PerformanceTabs({ data }) {
       <Tab eventKey="Performance" title="Performance">
         <ReturnBarChart data={annualReturn} />
       </Tab>
+      <Tab eventKey="Fundamental" title="Fundamental">
+        <BarChartFundamentals performanceMetric={fundamentalData} />
+      </Tab>
       <Tab eventKey="Risk Measure" title="Risk Measure">
         <PerformanceTable performanceMetric={performanceMetric} />
-      </Tab>
-      <Tab eventKey="contact" title="Contact">
-        Other
       </Tab>
     </Tabs>
   );
