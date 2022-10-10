@@ -148,5 +148,17 @@ def intr_day_historical_prices():
     return data
 
 
+@app.route("/api/company-ratios", methods=["GET"])
+def company_ratios():
+    ticker = request.args.get("ticker")
+    try:
+        data = fd.get_company_financial_ratios(ticker, period="quarter", limit=20)
+        data = make_response(jsonify(data), 200)
+
+    except Exception as e:
+        data = make_response(jsonify({"error": str(e)}), 404)
+    return data
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5050)

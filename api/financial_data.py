@@ -134,8 +134,32 @@ def get_intra_day_historical_price(ticker: str, interval: str):
     pass
 
 
+def get_company_financial_ratios(ticker: str, period: str = "annual", limit: int = 140):
+    """get company ratios"""
+
+    if not (period.lower() in ["annual", "quarter"]):
+        raise ValueError("Invalid interval: " + period)
+    error_msg = ""
+    url = FMP_ROOT_URL + f"v3/ratios/{ticker}"
+    params = {"apikey": FMP_KEY, "limit": limit}
+    if period == "quarter":
+        params["period"] = period
+    response = requests.get(url=url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()
+        if not (data):
+            raise ValueError("No result found for tickers " + str(ticker) + error_msg)
+        return data
+    elif response.status_code == 403:
+        raise AuthenticationError("Incorrect Key")
+    else:
+        data = response.json()["error"]
+        raise ValueError(data)
+
+
 if __name__ == "__main__":
     # print(get_treasury_rate("2022-07-29"))
     # print(get_stock_price("fff"))
-    print(get_live_quote(["aapl", "spy"]))
+    print(get_company_financial_ratios("AAPL", period="quarter"))
     pass
