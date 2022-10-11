@@ -35,7 +35,7 @@ const Search = ({
               </Col>
             </Form.Group>
 
-            <Form.Group
+            {/* <Form.Group
               as={Row}
               className="mb-2"
               controlId="formPlaintextBenchmark"
@@ -51,7 +51,7 @@ const Search = ({
                   placeholder="(Optional)"
                 />
               </Col>
-            </Form.Group>
+            </Form.Group> */}
 
             <Form.Group
               as={Row}

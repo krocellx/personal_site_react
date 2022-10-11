@@ -17,9 +17,17 @@ const Home = () => (
         variant="primary"
         href="https://github.com/krocellx/personal_site_react"
         target="_blank"
-        style={{ marginTop: '6px' }}
+        style={{ marginTop: '40px' }}
       >
-        GitHub Link
+        GitHub
+      </Button>{' '}
+      <Button
+        variant="primary"
+        href="https://www.linkedin.com/in/harveyxie/"
+        target="_blank"
+        style={{ marginTop: '40px' }}
+      >
+        Linkedin
       </Button>
     </div>
   </div>
