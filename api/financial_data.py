@@ -1,12 +1,14 @@
 from multiprocessing import AuthenticationError
 from multiprocessing.sharedctypes import Value
 import os
+from turtle import st
 
 import requests  # noqa: E402
 from dotenv import load_dotenv  # noqa: E402
 from flask import Flask, request, jsonify, make_response  # noqa: E402
 from datetime import datetime  # noqa: E402
 import utility as u  # noqa: E402
+import pandas as pd
 
 load_dotenv(dotenv_path="./.env.local")
 
@@ -135,13 +137,86 @@ def get_intra_day_historical_price(ticker: str, interval: str):
     pass
 
 
-def get_company_financial_ratios(ticker: str, period: str = "annual", limit: int = 140):
+def get_company_financial_ratios_custom(
+    ticker: str, period: str = "annual", limit: int = 140
+):
+    raw_ratios = get_company_metrics(ticker=ticker, period=period, limit=limit)
+    raw_income_statement = get_company_financial_statements(
+        ticker=ticker, statement_type="income-statement", period=period, limit=limit + 3
+    )
+
+    df_raw_ratios = pd.DataFrame(raw_ratios)
+    df_raw_ratios = df_raw_ratios.iloc[::-1].sort_values(by="date")
+
+    df_raw_income_statement = pd.DataFrame(raw_income_statement)
+    df_raw_income_statement = df_raw_income_statement.iloc[::-1].sort_values(by="date")
+
+    # calculate different TTM data
+    df_raw_income_statement["ebitda_ttm"] = (
+        df_raw_income_statement[["ebitda"]].rolling(4).sum()
+    )
+    df_raw_income_statement = df_raw_income_statement.tail(-3)
+
+    ls_key = ["date", "symbol", "period"]
+    df_result = df_raw_ratios.merge(df_raw_income_statement, how="inner", on=ls_key)
+    df_result["enterpriseValueOverEBITDA"] = (
+        df_result["enterpriseValue"] / df_result["ebitda_ttm"]
+    )
+    df_result["period"] = df_result["calendarYear"].astype(str) + df_result[
+        "period"
+    ].astype(str)
+
+    ls_result = [
+        "symbol",
+        "date",
+        "period",
+        "pbRatio",
+        "enterpriseValueOverEBITDA",
+        "peRatio",
+    ]
+
+    return df_result[ls_result].to_dict("records")
+
+
+def get_company_metrics(ticker: str, period: str = "annual", limit: int = 140):
     """get company ratios"""
 
     if not (period.lower() in ["annual", "quarter"]):
         raise ValueError("Invalid interval: " + period)
     error_msg = ""
-    url = FMP_ROOT_URL + f"v3/ratios/{ticker}"
+    url = FMP_ROOT_URL + f"v3/key-metrics/{ticker}"
+    params = {"apikey": FMP_KEY, "limit": limit}
+    if period == "quarter":
+        params["period"] = period
+    response = requests.get(url=url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()
+        if not (data):
+            raise ValueError("No result found for tickers " + str(ticker) + error_msg)
+
+        return data
+    elif response.status_code == 403:
+        raise AuthenticationError("Incorrect Key")
+    else:
+        data = response.json()["error"]
+        raise ValueError(data)
+
+
+def get_company_financial_statements(
+    ticker: str, statement_type: str, period: str = "annual", limit: int = 140
+):
+    """get company financial statements"""
+    if not (period.lower() in ["annual", "quarter"]):
+        raise ValueError("Invalid interval: " + period)
+    if not (
+        statement_type.lower()
+        in ["income-statement", "balance-sheet-statement", "cash-flow-statement"]
+    ):
+        raise ValueError("Invalid statement type: " + statement_type)
+
+    error_msg = ""
+    url = FMP_ROOT_URL + f"v3/{statement_type}/{ticker}"
     params = {"apikey": FMP_KEY, "limit": limit}
     if period == "quarter":
         params["period"] = period
@@ -163,5 +238,6 @@ def get_company_financial_ratios(ticker: str, period: str = "annual", limit: int
 if __name__ == "__main__":
     # print(get_treasury_rate("2022-07-29"))
     # print(get_stock_price("fff"))
-    a = get_company_financial_ratios("AAPL", period="quarter", limit=2)
+    a = get_company_financial_ratios_custom("AAPL", period="quarter", limit=20)
+    print(a)
     pass

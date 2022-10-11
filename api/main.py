@@ -152,7 +152,9 @@ def intr_day_historical_prices():
 def company_ratios():
     ticker = request.args.get("ticker")
     try:
-        data = fd.get_company_financial_ratios(ticker, period="quarter", limit=20)
+        data = fd.get_company_financial_ratios_custom(
+            ticker, period="quarter", limit=20
+        )
         data = make_response(jsonify(data), 200)
 
     except Exception as e:
