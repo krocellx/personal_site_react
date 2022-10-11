@@ -45,7 +45,7 @@ const PerformanceAnalysis = () => {
       ) : (
         <>
           <Container className="mt-4">
-            <h1>Equity Research Space</h1>
+            <h1 className="text-center">Equity Research Space</h1>
             <StockSearch
               ticker={ticker}
               setTicker={setTicker}
@@ -70,7 +70,7 @@ const PerformanceAnalysis = () => {
                 </Row>
               </Container>
             ) : (
-              <h5>TODO: Compare Stock with Benchmark</h5>
+              <h5> </h5>
             )}
           </Container>
         </>

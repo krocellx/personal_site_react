@@ -1,11 +1,11 @@
 import React from 'react';
-import Welcome from '../components/Home';
+import Home from '../components/Home';
 import { Container } from 'react-bootstrap';
 
 const Overview = () => {
   return (
     <Container className="mt-4">
-      <Welcome />
+      <Home />
     </Container>
   );
 };

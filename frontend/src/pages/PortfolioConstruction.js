@@ -36,7 +36,7 @@ const PortfolioConstruction = () => {
   return (
     <div>
       <Container className="mt-4">
-        <h1>Portfolio Construction</h1>
+        <h1 className="text-center">Portfolio Construction</h1>
         <PortfolioDefinitionTable />
       </Container>
       {/* {loading ? (
