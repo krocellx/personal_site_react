@@ -23,7 +23,7 @@ function PortfolioDefinitionTable({ performanceMetric }) {
         </thead>
         <tbody>
           {portfolioFormDate.map((item) => {
-            console.log(item);
+            // console.log(item);
             return (
               <tr>
                 <td>
