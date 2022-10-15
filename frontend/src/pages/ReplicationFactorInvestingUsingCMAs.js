@@ -7,7 +7,7 @@ const ReplicationFactorInvestingUsingCMAs = () => {
     <iframe
       title="test"
       class="responsive-iframe"
-      src="\Replication_Factor_Investing_Using_CMAs.html"
+      src="%PUBLIC_URL%/Replication_Factor_Investing_Using_CMAs.html"
       width="100%"
       height="100%"
     ></iframe>
