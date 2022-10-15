@@ -26,14 +26,13 @@ const PerformanceAnalysis = () => {
         `${API_URL}/stock-performance?ticker=${ticker}&benchmark=${benchmark}&startDate=${startDate}&endDate=${endDate}`
       );
       setReturnData(res.data);
+      toast.info(`Stock ${ticker} was found`);
       const res_fun = await axios.get(
         `${API_URL}/company-ratios?ticker=${ticker.toUpperCase()}`
       );
       setfundamentalData(res_fun.data);
-      toast.info(`Stock ${ticker} was found`);
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
     }
     setLoading(false);
     setTicker(ticker.toUpperCase());

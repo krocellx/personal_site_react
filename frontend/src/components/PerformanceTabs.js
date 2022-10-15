@@ -10,6 +10,17 @@ function PerformanceTabs({ returnData, fundamentalData }) {
   const annualReturn = returnData.chart_data.annual_return;
   const performanceMetric = returnData.performance_metric;
   // setAnnualReturn(data.data.chart_data.annual_return);
+  const fundemantalTab = (fundamentalData) => {
+    if (fundamentalData.error) {
+      return <></>;
+    } else {
+      return (
+        <Tab eventKey="Fundamental" title="Fundamental">
+          <BarChartFundamentals data={fundamentalData} />
+        </Tab>
+      );
+    }
+  };
   return (
     <Tabs
       id="controlled-tab-example"
@@ -20,9 +31,7 @@ function PerformanceTabs({ returnData, fundamentalData }) {
       <Tab eventKey="Performance" title="Performance">
         <ReturnBarChart data={annualReturn} />
       </Tab>
-      <Tab eventKey="Fundamental" title="Fundamental">
-        <BarChartFundamentals data={fundamentalData} />
-      </Tab>
+      {fundemantalTab}
       <Tab eventKey="Risk Measure" title="Risk Measure">
         <PerformanceTable performanceMetric={performanceMetric} />
       </Tab>
