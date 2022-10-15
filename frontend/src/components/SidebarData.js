@@ -21,6 +21,13 @@ export const SidebarData = [
     title: 'Portfolio Construction',
     path: '/portfolio-construction',
     icon: <AiIcons.AiFillPieChart />,
+    subNav: [
+      {
+        title: 'Factor Investing Using CMAs',
+        path: '/portfolio-construction/factor-investing-using-cmas',
+        icon: <AiIcons.AiFillExperiment />,
+      },
+    ],
   },
   {
     title: 'Image Search',
