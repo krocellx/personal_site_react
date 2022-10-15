@@ -42,7 +42,6 @@ import ReturnBarChart from './AnnualReturnBarChart';
 
 export class PerformanceTabs extends React.Component {
   constructor({ returnData, fundamentalData }) {
-    console.log(fundamentalData);
     super();
     this.state = {
       key: 'Performance',
