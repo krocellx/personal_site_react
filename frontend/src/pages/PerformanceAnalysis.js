@@ -32,6 +32,7 @@ const PerformanceAnalysis = () => {
       );
       setfundamentalData(res_fun.data);
     } catch (error) {
+      setfundamentalData({});
       console.log(error);
     }
     setLoading(false);
