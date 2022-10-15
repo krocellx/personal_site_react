@@ -15,7 +15,7 @@ const Search = ({
   return (
     <Container className="mt-4">
       <Row className="justify-content-center">
-        <Col xs={12} md={8} lg={6}>
+        <Col xs={12} md={10} lg={8}>
           <Form onSubmit={handleSubmit}>
             <Form.Group
               as={Row}
@@ -25,7 +25,7 @@ const Search = ({
               <Form.Label column sm="3">
                 Ticker
               </Form.Label>
-              <Col xs={9}>
+              <Col sm="9">
                 <Form.Control
                   type="text"
                   value={ticker}
@@ -59,9 +59,9 @@ const Search = ({
               controlId="formPlaintextStartDate"
             >
               <Form.Label column sm="3">
-                Start Date
+                Start Date (Optional)
               </Form.Label>
-              <Col xs={9}>
+              <Col sm="9">
                 <Form.Control
                   type="date"
                   onChange={(e) => setStartDate(e.target.value)}
@@ -75,11 +75,12 @@ const Search = ({
               controlId="formPlaintextEndDate"
             >
               <Form.Label column sm="3">
-                End Date
+                End Date (Optional)
               </Form.Label>
-              <Col xs={9}>
+              <Col sm="9">
                 <Form.Control
                   type="date"
+                  placeholder="Search Ticker..."
                   onChange={(e) => setEndDate(e.target.value)}
                 ></Form.Control>
               </Col>
