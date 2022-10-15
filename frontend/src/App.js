@@ -24,7 +24,7 @@ function App() {
           </Col>
           <Col>
             <Header />
-            <Container fluid className="mt-4">
+            <Container fluid className="mt-4" style={{ height: '90vh' }}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
