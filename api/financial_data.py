@@ -1,7 +1,6 @@
 from multiprocessing import AuthenticationError
 from multiprocessing.sharedctypes import Value
 import os
-from turtle import st
 
 import requests  # noqa: E402
 from dotenv import load_dotenv  # noqa: E402
