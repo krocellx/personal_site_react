@@ -13,9 +13,21 @@ export const SidebarData = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
-    title: 'Stock Performance',
-    path: '/stock-performance',
+    title: 'Equity Research',
+    path: '/equity-research',
     icon: <AiIcons.AiOutlineStock />,
+  },
+  {
+    title: 'Portfolio Construction',
+    path: '/portfolio-construction',
+    icon: <AiIcons.AiFillPieChart />,
+    subNav: [
+      {
+        title: 'Factor Investing Using CMAs',
+        path: '/portfolio-construction/factor-investing-using-cmas',
+        icon: <AiIcons.AiFillExperiment />,
+      },
+    ],
   },
   {
     title: 'Image Search',

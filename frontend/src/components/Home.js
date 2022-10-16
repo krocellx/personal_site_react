@@ -1,24 +1,36 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-const Welcome = () => (
+const Home = () => (
   <div class="p-5 mb-4 bg-light rounded-3">
     <div class="container-fluid py-5">
       <h1>Harvey Xie's personal Site</h1>
-      <p>This is simple application using React and Python.</p>
+      <p>
+        Rotman MBA Candidate with passion in Portfolio Construction and Factor
+        Investing
+      </p>
       <h5>Current functionalities (via sidebar):</h5>
-      <li>Stock Perfromance: W.I.P. performance analytics</li>
+      <li>Equity Research and Security Selection Space</li>
+      <li>Portfolio Construction Space</li>
       <li>Image Search: search random picture and store in MangoDB</li>
       <Button
         variant="primary"
         href="https://github.com/krocellx/personal_site_react"
         target="_blank"
-        style={{ marginTop: '6px' }}
+        style={{ marginTop: '40px' }}
       >
-        GitHub Link
+        GitHub
+      </Button>{' '}
+      <Button
+        variant="primary"
+        href="https://www.linkedin.com/in/harveyxie/"
+        target="_blank"
+        style={{ marginTop: '40px' }}
+      >
+        Linkedin
       </Button>
     </div>
   </div>
 );
 
-export default Welcome;
+export default Home;

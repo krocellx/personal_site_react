@@ -15,6 +15,7 @@ const PerformanceAnalysis = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [returnData, setReturnData] = useState({ ticker: 'empty' });
+  const [fundamentalData, setfundamentalData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handleStockSearchSubmit = async (e) => {
@@ -26,9 +27,13 @@ const PerformanceAnalysis = () => {
       );
       setReturnData(res.data);
       toast.info(`Stock ${ticker} was found`);
+      const res_fun = await axios.get(
+        `${API_URL}/company-ratios?ticker=${ticker.toUpperCase()}`
+      );
+      setfundamentalData(res_fun.data);
     } catch (error) {
+      setfundamentalData({});
       console.log(error);
-      toast.error(error.message);
     }
     setLoading(false);
     setTicker(ticker.toUpperCase());
@@ -40,7 +45,7 @@ const PerformanceAnalysis = () => {
       ) : (
         <>
           <Container className="mt-4">
-            <h1>Performance Analysis</h1>
+            <h1 className="text-center">Equity Research Space</h1>
             <StockSearch
               ticker={ticker}
               setTicker={setTicker}
@@ -57,12 +62,15 @@ const PerformanceAnalysis = () => {
                 </Row>
                 <Row mb={2}>
                   <Col>
-                    <PerformanceTabs data={returnData} />
+                    <PerformanceTabs
+                      returnData={returnData}
+                      fundamentalData={fundamentalData}
+                    />
                   </Col>
                 </Row>
               </Container>
             ) : (
-              <h5>TODO: Compare Stock with Benchmark</h5>
+              <h5> </h5>
             )}
           </Container>
         </>

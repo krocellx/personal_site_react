@@ -8,7 +8,7 @@ sys.path.append(fpath)
 
 
 import requests  # noqa: E402
-from flask import Flask, request, jsonify, make_response  # noqa: E402
+from flask import Flask, request, jsonify, make_response, render_template  # noqa: E402
 from dotenv import load_dotenv  # noqa: E402
 from flask_cors import CORS  # noqa: E402
 from mongo_client import mongo_client  # noqa: E402
@@ -39,9 +39,10 @@ CORS(app)
 app.config["DEBUG"] = DEBUG
 
 
+@app.route("/")
 @app.route("/api/home")
 def home():
-    return {"response": "Welcome to the API"}
+    return {"response": "Welcome to Harvey's API"}
 
 
 @app.route("/api/new-image")
@@ -146,6 +147,28 @@ def intr_day_historical_prices():
     except Exception as e:
         data = make_response(jsonify({"error": str(e)}), 404)
     return data
+
+
+@app.route("/api/company-ratios", methods=["GET"])
+def company_ratios():
+    ticker = request.args.get("ticker")
+    try:
+        data = fd.get_company_financial_ratios_custom(
+            ticker, period="quarter", limit=20
+        )
+        data = make_response(jsonify(data), 200)
+
+    except Exception as e:
+        data = make_response(jsonify({"error": str(e)}), 404)
+    return data
+
+
+@app.route("/api/replication-factor-investing-using-cmas", methods=["GET"])
+def replication_factor_investing_using_cmas():
+    html_path = os.path.join(fpath, "html/Replication_Factor_Investing_Using_CMAs.html")
+    with open(html_path, "r", encoding="utf-8") as html_file:
+        html_code = html_file.read()
+    return html_code
 
 
 if __name__ == "__main__":

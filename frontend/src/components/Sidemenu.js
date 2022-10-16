@@ -29,7 +29,7 @@ const SidebarNav = styled.nav`
   background: #15171c;
   height: 100vh;
   justify-content: center;
-  width: 250px;
+  width: 320px;
 `;
 const navbarStyle = {
   backgroundColor: '#15171c',
@@ -40,7 +40,7 @@ const navbarStyle = {
 };
 
 const Sidemenu = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   return (
     <>
       <Navbar id="responsive-side-menu" style={navbarStyle} sticky="top">
@@ -48,7 +48,7 @@ const Sidemenu = () => {
           <SidebarWrap>
             <SidebarNav className="text-truncate">
               <NavIcon
-                onClick={() => setOpen(!open)}
+                // onClick={() => setOpen(!open)}
                 aria-controls="example-collapse-text"
                 aria-expanded={open}
               >
@@ -56,7 +56,14 @@ const Sidemenu = () => {
               </NavIcon>
 
               {SidebarData.map((item, index) => {
-                return <SubMenu item={item} key={index} />;
+                return (
+                  <SubMenu
+                    item={item}
+                    key={index}
+                    sideMenuState={open}
+                    setSideMenuState={setOpen}
+                  />
+                );
               })}
             </SidebarNav>
           </SidebarWrap>

@@ -10,7 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import formatNumToPercentage from '../utility/formatter.js';
+import { formatNumToPercentage } from '../utility/formatter.js';
 
 const axisStyle = {
   fontFamily: 'sans-serif',
@@ -18,6 +18,7 @@ const axisStyle = {
   textAnchor: 'middle',
 };
 function ReturnBarChart({ data }) {
+  // console.log(data);
   return (
     <Container>
       <div>
