@@ -38,8 +38,9 @@ def get_stock_price(ticker, start_date=None, end_date=None):
 
     if start_date:
         params["from"] = start_date
-        params["to"] = end_date if end_date else start_date
-        error_msg = f" from {start_date} to {end_date}"
+
+    if start_date:
+        params["to"] = end_date
 
     response = requests.get(url=url, params=params)
 
