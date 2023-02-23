@@ -6,7 +6,6 @@ import sys
 fpath = os.path.dirname(__file__)
 sys.path.append(fpath)
 
-
 import requests  # noqa: E402
 from flask import Flask, request, jsonify, make_response, render_template  # noqa: E402
 from dotenv import load_dotenv  # noqa: E402
@@ -15,7 +14,6 @@ from mongo_client import mongo_client  # noqa: E402
 import financial_data as fd  # noqa: E402
 import portfolio_analysis as pa  # noqa: E402
 from datetime import datetime  # noqa: E402
-
 
 gallery = mongo_client.gallery
 images_collection = gallery.images
@@ -86,7 +84,6 @@ def images_delete(image_id):
 
 @app.route("/api/stock_price", methods=["GET"])
 def stock_price():
-
     ticker = request.args.get("ticker")
     start_date = request.args.get("startDate")
     end_date = request.args.get("endDate")
