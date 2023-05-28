@@ -22,9 +22,9 @@ function App() {
           <Col className="col-auto ">
             <Sidemenu />
           </Col>
-          <Col>
+          <Col style={{ overflow: 'auto' }}>
             <Header />
-            <Container fluid className="mt-4" style={{ height: '90vh' }}>
+            <Container fluid className="mt-4" style={{ height: '89vh' }}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />

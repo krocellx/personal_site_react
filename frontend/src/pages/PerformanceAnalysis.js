@@ -1,4 +1,4 @@
-import { useState, React } from 'react';
+import { useState, useEffect, React } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import StockSearch from '../components/StockSearch';
@@ -10,7 +10,7 @@ import axios from 'axios';
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5050/api';
 
 const PerformanceAnalysis = () => {
-  const [ticker, setTicker] = useState('');
+  const [ticker, setTicker] = useState('AAPL');
   const [benchmark, setBenchmark] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -38,6 +38,29 @@ const PerformanceAnalysis = () => {
     setLoading(false);
     setTicker(ticker.toUpperCase());
   };
+
+  useEffect(() => {
+    async function getInitialLoad() {
+      try {
+        setLoading(true);
+        const res = await axios.get(
+          `${API_URL}/stock-performance?ticker=${ticker}&benchmark=${benchmark}&startDate=${startDate}&endDate=${endDate}`
+        );
+        setReturnData(res.data);
+        toast.info(`Stock ${ticker} was found`);
+        const res_fun = await axios.get(
+          `${API_URL}/company-ratios?ticker=${ticker.toUpperCase()}`
+        );
+        setfundamentalData(res_fun.data);
+      } catch (error) {
+        setfundamentalData({});
+        console.log(error);
+      }
+      setLoading(false);
+    }
+    getInitialLoad();
+  }, []);
+
   return (
     <div>
       {loading ? (

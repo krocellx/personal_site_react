@@ -4,15 +4,17 @@ import { Button } from 'react-bootstrap';
 const Home = () => (
   <div class="p-5 mb-4 bg-light rounded-3">
     <div class="container-fluid py-5">
-      <h1>Harvey Xie's personal Site</h1>
+      <h1>Harvey Xie's Personal Site</h1>
       <p>
-        Rotman MBA Candidate with passion in Portfolio Construction and Factor
-        Investing
+        Rotman MBA Candidate with a passion for Portfolio Construction and
+        Factor Investing
       </p>
       <h5>Current functionalities (via sidebar):</h5>
       <li>Equity Research and Security Selection Space</li>
-      <li>Portfolio Construction Space</li>
-      <li>Image Search: search random picture and store in MangoDB</li>
+      <li>
+        Replication of "Factor Investing Using Capital Market Assumptions"
+      </li>
+      <li>Search for images based on keywords and store them in MongoDB</li>
       <Button
         variant="primary"
         href="https://github.com/krocellx/personal_site_react"
