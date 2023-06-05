@@ -12,6 +12,8 @@ pymongo = {extras = ["srv"], version = "*"}
 gunicorn = "==20.1.0"
 pandas = "*"
 pandas-market-calendars = "==3.5"
+statsmodels = "*"
+scikit-learn = "*"
 
 [dev-packages]
 black = "==22.3.0"

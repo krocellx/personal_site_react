@@ -1,6 +1,7 @@
 from multiprocessing import AuthenticationError
 from multiprocessing.sharedctypes import Value
 import os
+import csv
 
 import requests  # noqa: E402
 from dotenv import load_dotenv  # noqa: E402
@@ -31,7 +32,7 @@ def get_treasury_rate(start_date, end_date=None):
         raise ValueError(data)
 
 
-def get_stock_price(ticker, start_date=None, end_date=None):
+def get_stock_price(ticker, start_date=None, end_date=None, to_csv=False):
     url = FMP_ROOT_URL + "v3/historical-price-full/" + ticker.upper()
     params = {"apikey": FMP_KEY}
     error_msg = ""
@@ -55,6 +56,21 @@ def get_stock_price(ticker, start_date=None, end_date=None):
             hist_price, key=lambda t: datetime.strptime(t["date"], "%Y-%m-%d")
         )
         data["historical"] = sorted_hist_price
+        if to_csv:
+            csv_file = f'{ticker}_historical_price.csv'
+            csv_headers = ['symbol', 'date', 'open', 'high', 'low', 'close', 'adjClose', 'volume', 'unadjustedVolume',
+                           'vwap', 'changeOverTime', 'changePercent', 'label', 'change']
+            with open(csv_file, mode='w', newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=csv_headers)
+                writer.writeheader()
+
+                symbol = data['symbol']
+                historical_data = data['historical']
+
+                for item in historical_data:
+                    item['symbol'] = symbol
+                    writer.writerow(item)
+
         return data
     else:
         data = response.json()["error"]
@@ -238,6 +254,6 @@ def get_company_financial_statements(
 if __name__ == "__main__":
     # print(get_treasury_rate("2022-07-29"))
     # print(get_stock_price("fff"))
-    a = get_company_financial_ratios_custom("AAPL", period="quarter", limit=20)
+    a = get_stock_price("SPY", to_csv=True)
     print(a)
     pass
