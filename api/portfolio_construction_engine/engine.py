@@ -86,12 +86,9 @@ class Factor:
         model = sm.OLS(data['excess_returns'], factors)
         results = model.fit()
 
-        # The coefficients of the regression are the factor exposures
-        factor_exposures = pd.Series(results.params.values[1:], index=factors.columns[1:])
-
         # Create a dictionary to store parameter statistics
         param_stats = {}
-        for factor in factors.columns[1:]:
+        for factor in factors.columns:
             param_stats[factor] = {
                 'coef': results.params[factor],
                 'std_err': results.bse[factor],
@@ -130,13 +127,12 @@ class Factor:
 
             # Store the factor exposures
             rolling_factor_exposures[window_data.DATE.iat[-1].strftime('%Y-%m-%d')] = {
-                factor: results.params[factor] for factor in factors.columns[1:]
+                factor: results.params[factor] for factor in factors.columns
             }
 
         return {
             'full_horizon': {
-                'regression_stats': regression_stats,
-                'factor_exposures': factor_exposures.to_dict()
+                'regression_stats': regression_stats
             },
             'rolling': rolling_factor_exposures
         }

@@ -40,7 +40,7 @@ class Portfolio_Analytics:
         )
         df_ticker_data = pd.json_normalize(ticker_data_json, "historical", ["symbol"])
         df_ticker_data["date"] = pd.to_datetime(
-            df_ticker_data["date"], format="%Y-%m-%"
+            df_ticker_data["date"], format="%Y-%m-%d"
         )
         df_ticker_data.sort_values(by="date", inplace=True)
 
@@ -131,6 +131,6 @@ class Portfolio_Analytics:
 
 if __name__ == "__main__":
     test = Portfolio_Analytics(
-        ticker="ARKK", start_date="2019-07-28", end_date="2022-07-29"
+        ticker="AAPL", start_date=None, end_date=None
     )
     test.default_performance_analysis()

@@ -35,6 +35,11 @@ export const SidebarData = [
     icon: <AiIcons.AiFillExperiment />,
   },
   {
+    title: 'The q-Factor Exposure Example',
+    path: '/q-factor-example',
+    icon: <AiIcons.AiFillExperiment />,
+  },
+  {
     title: 'Image Search',
     path: '/image-search',
     icon: <AiIcons.AiFillPicture />,
