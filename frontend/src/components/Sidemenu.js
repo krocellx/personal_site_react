@@ -48,7 +48,7 @@ const Sidemenu = () => {
           <SidebarWrap>
             <SidebarNav className="text-truncate">
               <NavIcon
-                // onClick={() => setOpen(!open)}
+                onClick={() => setOpen(!open)}
                 aria-controls="example-collapse-text"
                 aria-expanded={open}
               >
