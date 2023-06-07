@@ -40,7 +40,7 @@ class Portfolio_Analytics:
         )
         df_ticker_data = pd.json_normalize(ticker_data_json, "historical", ["symbol"])
         df_ticker_data["date"] = pd.to_datetime(
-            df_ticker_data["date"], format="%Y-%m-%"
+            df_ticker_data["date"], format="%Y-%m-%d"
         )
         df_ticker_data.sort_values(by="date", inplace=True)
 
