@@ -251,6 +251,18 @@ def get_company_financial_statements(
         raise ValueError(data)
 
 
+def get_symbol_list_to_csv():
+    """get All Companies ticker symbols available in Financial Modeling Prep"""
+    url = FMP_ROOT_URL + f"v3/stock/list"
+    params = {"apikey": FMP_KEY}
+    response = requests.get(url=url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()
+        df_data = pd.DataFrame(data)
+        df_data.to_excel(r'symbol_list.xlsx')
+
+
 if __name__ == "__main__":
     # print(get_treasury_rate("2022-07-29"))
     # print(get_stock_price("fff"))
