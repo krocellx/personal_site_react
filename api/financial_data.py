@@ -240,7 +240,7 @@ def get_company_financial_statements(
 
     if response.status_code == 200:
         data = response.json()
-        if not (data):
+        if not data:
             raise ValueError("No result found for tickers " + str(ticker) + error_msg)
 
         return u.transform_fundamental_list_to_dict(data)
@@ -266,6 +266,9 @@ def get_symbol_list_to_csv():
 if __name__ == "__main__":
     # print(get_treasury_rate("2022-07-29"))
     # print(get_stock_price("fff"))
+    # a = get_company_financial_ratios_custom("AAPL", period="quarter", limit=20)
+    # print(a)
+    get_symbol_list_to_csv()
     a = get_stock_price("SPY", to_csv=True)
     print(a)
     pass
