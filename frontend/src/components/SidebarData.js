@@ -1,7 +1,7 @@
 import React from 'react';
 import * as AiIcons from 'react-icons/ai';
 import * as RiIcons from 'react-icons/ri';
-// import * as FaIcons from 'react-icons/fa';
+import * as FaIcons from 'react-icons/fa';
 // import * as MdIcons from 'react-icons/md';
 
 export const SidebarData = [
@@ -33,6 +33,11 @@ export const SidebarData = [
     title: 'Factor Investing Using CMAs',
     path: '/portfolio-construction/factor-investing-using-cmas',
     icon: <AiIcons.AiFillExperiment />,
+  },
+  {
+    title: 'q-Factor Regression Analysis',
+    path: '/q-factor-example',
+    icon: <FaIcons.FaChartPie />,
   },
   {
     title: 'Image Search',

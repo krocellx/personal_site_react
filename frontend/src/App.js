@@ -11,6 +11,7 @@ import ImageSearch from './pages/ImageSearch';
 import PerformanceAnalysis from './pages/PerformanceAnalysis';
 import PortfolioConstruction from './pages/PortfolioConstruction';
 import ReplicationFactorInvestingUsingCMAs from './pages/ReplicationFactorInvestingUsingCMAs';
+import FactorExposureExample from './pages/FactorExposureExample';
 import ExperimentPage from './pages/Experiment';
 import Home from './pages/HomePage';
 
@@ -36,6 +37,10 @@ function App() {
                 <Route
                   path="/portfolio-construction"
                   element={<PortfolioConstruction />}
+                />
+                <Route
+                  path="/q-factor-example"
+                  element={<FactorExposureExample />}
                 />
                 <Route
                   path="/portfolio-construction/factor-investing-using-cmas"

@@ -131,6 +131,6 @@ class Portfolio_Analytics:
 
 if __name__ == "__main__":
     test = Portfolio_Analytics(
-        ticker="ARKK", start_date="2019-07-28", end_date="2022-07-29"
+        ticker="AAPL", start_date=None, end_date=None
     )
     test.default_performance_analysis()
