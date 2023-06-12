@@ -1,7 +1,7 @@
 import React from 'react';
 import * as AiIcons from 'react-icons/ai';
 import * as RiIcons from 'react-icons/ri';
-// import * as FaIcons from 'react-icons/fa';
+import * as FaIcons from 'react-icons/fa';
 // import * as MdIcons from 'react-icons/md';
 
 export const SidebarData = [
@@ -35,9 +35,9 @@ export const SidebarData = [
     icon: <AiIcons.AiFillExperiment />,
   },
   {
-    title: 'The q-Factor Exposure Example',
+    title: 'q-Factor Regression Analysis',
     path: '/q-factor-example',
-    icon: <AiIcons.AiFillExperiment />,
+    icon: <FaIcons.FaChartPie />,
   },
   {
     title: 'Image Search',

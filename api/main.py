@@ -22,6 +22,8 @@ from portfolio_construction_engine.engine import Factor, Portfolio
 gallery = mongo_client.gallery
 images_collection = gallery.images
 
+equity_price_collection = mongo_client.equity.price
+
 load_dotenv(dotenv_path="./.env.local")
 
 UNSPLASH_URL = "https://api.unsplash.com/photos/random"
@@ -172,16 +174,23 @@ def replication_factor_investing_using_cmas():
 
 @app.route("/api/factor_exposure", methods=["GET"])
 def get_factor_exposure_example():
+    ticker = request.args.get("ticker")
     try:
+        print(ticker)
         sample_data_dir = os.path.join(fpath, 'portfolio_construction_engine', 'temp_data')
         factor_data_model = Factor(os.path.join(sample_data_dir, 'q5_factors_daily_2022.csv'))
-        spy = pd.read_csv(os.path.join(sample_data_dir, 'SPY_historical_price.csv'))
-        spy.rename(columns={'adjClose': 'value'}, inplace=True)
-        spy = spy[['symbol', 'date', 'value']]
-        assets = ['SPY']
+        # spy = pd.read_csv(os.path.join(sample_data_dir, 'SPY_historical_price.csv'))
+        # spy.rename(columns={'adjClose': 'value'}, inplace=True)
+        equity_price_get = equity_price_collection.find({'ticker': ticker.upper()})
+        ls_equity_price_get = list(equity_price_get)
+        df_eq_price = pd.DataFrame(ls_equity_price_get)
+        df_eq_price.rename(columns={'Date': 'date', 'Close': 'value'}, inplace=True)
+        df_eq_price = df_eq_price[['ticker', 'date', 'value']]
+        df_eq_price['date'] = pd.to_datetime(df_eq_price['date'], utc=True).dt.tz_localize(None).dt.normalize()
+        assets = [ticker.upper()]
         weights = [1]
 
-        portfolio = Portfolio(assets, weights, historical_prices=spy)
+        portfolio = Portfolio(assets, weights, historical_prices=df_eq_price)
 
         result = factor_data_model.calculate_exposures(portfolio)
 

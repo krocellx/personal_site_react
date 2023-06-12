@@ -29,4 +29,8 @@ def insert_test_document():
 
 
 if __name__ == "__main__":
-    insert_test_document()
+
+    equity_price = mongo_client.equity.price
+    spy_get = equity_price.find({'ticker': 'SPY'})
+    a = [img for img in spy_get]
+    print(1)

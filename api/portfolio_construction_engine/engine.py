@@ -19,7 +19,7 @@ class Portfolio:
 
         if historical_prices is not None:
             assert set(assets).issubset(set(
-                historical_prices['symbol'].unique())), "All assets must be present in the historical prices DataFrame"
+                historical_prices['ticker'].unique())), "All assets must be present in the historical prices DataFrame"
             self.returns = self.calculate_returns_from_prices(historical_prices)
 
         if forecast_returns is not None:
@@ -35,7 +35,7 @@ class Portfolio:
     def calculate_returns_from_prices(self, prices_df):
         # Pivot the DataFrame to have dates as rows and assets as columns
         prices_df['date'] = pd.to_datetime(prices_df['date'])
-        pivoted_prices = prices_df.pivot(index='date', columns='symbol', values='value')
+        pivoted_prices = prices_df.pivot(index='date', columns='ticker', values='value')
 
         # Ensure the pivoted DataFrame has the correct columns
         assert set(self.assets).issubset(
@@ -218,14 +218,23 @@ class Validation:
 
 
 if __name__ == '__main__':
-    factor_data_model = Factor('q5_factors_daily_2022.csv')
-    spy = pd.read_csv('SPY_historical_price.csv')
-    spy.rename(columns={'adjClose': 'value'}, inplace=True)
-    spy = spy[['symbol', 'date', 'value']]
-    assets = ['SPY']
+    import sys
+    import os
+    fpath = os.path.dirname(os.path.dirname(__file__))
+    sys.path.append(fpath)
+    from mongo_client import mongo_client
+
+    sample_data_dir = os.path.join(fpath, 'portfolio_construction_engine', 'temp_data')
+    factor_data_model = Factor(os.path.join(sample_data_dir, 'q5_factors_daily_2022.csv'))
+    equity_price_collection = mongo_client.equity.price
+    equity_price_get = equity_price_collection.find({'ticker': "SPY"})
+    ls_equity_price_get = list(equity_price_get)
+    df_eq_price = pd.DataFrame(ls_equity_price_get)
+    df_eq_price.rename(columns={'Date': 'date', 'Close': 'value'}, inplace=True)
+    df_eq_price = df_eq_price[['ticker', 'date', 'value']]
+    df_eq_price['date'] = pd.to_datetime(df_eq_price['date'], utc=True).dt.tz_localize(None).dt.normalize()
+    assets = ["SPY"]
     weights = [1]
-
-    portfolio = Portfolio(assets, weights, historical_prices=spy)
-
+    portfolio = Portfolio(assets, weights, historical_prices=df_eq_price)
     result = factor_data_model.calculate_exposures(portfolio)
     print('1')

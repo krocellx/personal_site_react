@@ -1,0 +1,78 @@
+import React from 'react';
+import { Form, Container, Row, Col, Button } from 'react-bootstrap';
+
+const Search = ({
+  ticker,
+  setTicker,
+  starDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  handleSubmit,
+}) => {
+  return (
+    <Container className="mt-4">
+      <Row className="justify-content-center">
+        <Col xs={12} md={10} lg={8}>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group
+              as={Row}
+              className="mb-2"
+              controlId="formPlaintextTicker"
+            >
+              <Form.Label column sm="3">
+                Ticker
+              </Form.Label>
+              <Col sm="9">
+                <Form.Control
+                  type="text"
+                  value={ticker}
+                  onChange={(e) => setTicker(e.target.value)}
+                  placeholder="Search Ticker..."
+                />
+              </Col>
+            </Form.Group>
+            <Form.Group
+              as={Row}
+              className="mb-2"
+              controlId="formPlaintextStartDate"
+            >
+              <Form.Label column sm="3">
+                Start Date (Optional)
+              </Form.Label>
+              <Col sm="9">
+                <Form.Control
+                  type="date"
+                  onChange={(e) => setStartDate(e.target.value)}
+                ></Form.Control>
+              </Col>
+            </Form.Group>
+
+            <Form.Group
+              as={Row}
+              className="mb-2"
+              controlId="formPlaintextEndDate"
+            >
+              <Form.Label column sm="3">
+                End Date (Optional)
+              </Form.Label>
+              <Col sm="9">
+                <Form.Control
+                  type="date"
+                  placeholder="Search Ticker..."
+                  onChange={(e) => setEndDate(e.target.value)}
+                ></Form.Control>
+              </Col>
+            </Form.Group>
+
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+export default Search;
