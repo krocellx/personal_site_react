@@ -1,4 +1,4 @@
-import { useState, useEffect, React } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import StockSearch from '../components/StockSearch';
@@ -18,8 +18,7 @@ const PerformanceAnalysis = () => {
   const [fundamentalData, setfundamentalData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handleStockSearchSubmit = async (e) => {
-    e.preventDefault();
+  const fetchData = async () => {
     try {
       setLoading(true);
       const res = await axios.get(
@@ -33,32 +32,19 @@ const PerformanceAnalysis = () => {
       setfundamentalData(res_fun.data);
     } catch (error) {
       setfundamentalData({});
-      console.log(error);
+      toast.error('An error occurred while fetching data');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-    setTicker(ticker.toUpperCase());
+  };
+
+  const handleStockSearchSubmit = (e) => {
+    e.preventDefault();
+    fetchData().catch((error) => console.error(error));
   };
 
   useEffect(() => {
-    async function getInitialLoad() {
-      try {
-        setLoading(true);
-        const res = await axios.get(
-          `${API_URL}/stock-performance?ticker=${ticker}&benchmark=${benchmark}&startDate=${startDate}&endDate=${endDate}`
-        );
-        setReturnData(res.data);
-        toast.info(`Stock ${ticker} was found`);
-        const res_fun = await axios.get(
-          `${API_URL}/company-ratios?ticker=${ticker.toUpperCase()}`
-        );
-        setfundamentalData(res_fun.data);
-      } catch (error) {
-        setfundamentalData({});
-        console.log(error);
-      }
-      setLoading(false);
-    }
-    getInitialLoad();
+    fetchData().catch((error) => console.error(error));
   }, []);
 
   return (
@@ -102,4 +88,5 @@ const PerformanceAnalysis = () => {
     </div>
   );
 };
+
 export default PerformanceAnalysis;
