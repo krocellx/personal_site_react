@@ -3,6 +3,8 @@ import numpy as np
 from abc import ABC, abstractmethod
 import statsmodels.api as sm
 from collections import defaultdict
+
+
 # import statsmodels.formula.api as smf
 # from sklearn.linear_model import LinearRegression
 
@@ -45,15 +47,17 @@ class Portfolio:
         returns = pivoted_prices.pct_change().dropna()
         return returns
 
+
 # Factor Definitions
 class Factor:
-    def __init__(self, filepath):
+    def __init__(self, filepath, convert_to_fraction=True):
         self.factor_data = pd.read_csv(filepath)
         self.parse_dates()
-        self.convert_to_fraction()
+        if convert_to_fraction:
+            self.convert_to_fraction()
 
     def parse_dates(self):
-        self.factor_data['DATE'] = pd.to_datetime(self.factor_data['DATE'], format='%Y%m%d')
+        self.factor_data['DATE'] = pd.to_datetime(self.factor_data['DATE'])
 
     def convert_to_fraction(self):
         # Convert factor data from percentage to fraction
@@ -82,8 +86,36 @@ class Factor:
         # Add constant to the factors for the intercept in the regression model
         factors = sm.add_constant(factors)
 
+        result = self.cal_exposure(data, factors, ls_assets=portfolio.assets)
+
+        return result
+
+    def cal_custom_exposure(self, portfolio, factor_list, cal_excess_return=True):
+
+        # Merge the portfolio returns and factor data on the date
+        pf_name = portfolio.returns.columns[0]
+        data = portfolio.returns.merge(self.factor_data, left_index=True, right_on='DATE')
+
+        if cal_excess_return:
+            # Calculate excess returns
+            data['excess_returns'] = data[pf_name] - data['R_F']
+        else:
+            data['excess_returns'] = data[pf_name]
+
+        # Select the factors
+        factors = data[factor_list]
+
+        result = self.cal_exposure(data, factors, ls_assets=portfolio.assets)
+
+        return result
+
+    @staticmethod
+    def cal_exposure(portfolio: pd.DataFrame, factors: pd.DataFrame, ls_assets: list):
+        # Add constant to the factors for the intercept in the regression model
+        factors = sm.add_constant(factors)
+
         # Fit the linear regression using statsmodels
-        model = sm.OLS(data['excess_returns'], factors)
+        model = sm.OLS(portfolio['excess_returns'], factors)
         results = model.fit()
 
         # Create a dictionary to store parameter statistics
@@ -104,9 +136,9 @@ class Factor:
             'Autocorrelation': sm.stats.diagnostic.acorr_breusch_godfrey(results)[3],
             'Heteroscedasticity': sm.stats.diagnostic.het_breuschpagan(results.resid, results.model.exog)[3],
             'Parameters': param_stats,
-            'Time period': [str(data.DATE.min().date()), str(data.DATE.max().date())],  # Time period
-            'Tickers': portfolio.assets,  # List of tickers in the portfolio
-            'Number of data points': len(data)  # Number of data points
+            'Time period': [str(portfolio.DATE.min().date()), str(portfolio.DATE.max().date())],  # Time period
+            'Tickers': ls_assets,  # List of tickers in the portfolio
+            'Number of data points': len(portfolio)  # Number of data points
         }
 
         # Dictionary to store factor exposures from each window
@@ -116,10 +148,10 @@ class Factor:
         window_size = 90
 
         # Perform rolling regression
-        for i in range(window_size, len(data)):
+        for i in range(window_size, len(portfolio)):
             # Select the data for the current window
-            window_data = data.iloc[i-window_size:i]
-            window_factors = factors.iloc[i-window_size:i]
+            window_data = portfolio.iloc[i - window_size:i]
+            window_factors = factors.iloc[i - window_size:i]
 
             # Fit the linear regression using statsmodels
             model = sm.OLS(window_data['excess_returns'], window_factors)
@@ -137,6 +169,7 @@ class Factor:
             'rolling': rolling_factor_exposures
         }
 
+
 # Abstract Optimization Class
 class AbstractOptimization(ABC):
     @abstractmethod
@@ -153,6 +186,7 @@ class MeanVarianceOptimization(AbstractOptimization):
 class RiskParityOptimization(AbstractOptimization):
     def optimize(self):
         pass
+
 
 # Risk Model
 class RiskModel:
@@ -220,6 +254,7 @@ class Validation:
 if __name__ == '__main__':
     import sys
     import os
+
     fpath = os.path.dirname(os.path.dirname(__file__))
     sys.path.append(fpath)
     from mongo_client import mongo_client
@@ -235,6 +270,6 @@ if __name__ == '__main__':
     df_eq_price['date'] = pd.to_datetime(df_eq_price['date'], utc=True).dt.tz_localize(None).dt.normalize()
     assets = ["SPY"]
     weights = [1]
-    portfolio = Portfolio(assets, weights, historical_prices=df_eq_price)
-    result = factor_data_model.calculate_exposures(portfolio)
+    PORTFOLIO = Portfolio(assets, weights, historical_prices=df_eq_price)
+    result = factor_data_model.calculate_exposures(PORTFOLIO)
     print('1')
