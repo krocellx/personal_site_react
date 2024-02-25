@@ -5,7 +5,7 @@ import csv
 
 import requests  # noqa: E402
 from dotenv import load_dotenv  # noqa: E402
-from flask import Flask, request, jsonify, make_response  # noqa: E402
+# from flask import Flask, request, jsonify, make_response  # noqa: E402
 from datetime import datetime  # noqa: E402
 import utility as u  # noqa: E402
 import pandas as pd
@@ -173,7 +173,7 @@ def get_company_financial_ratios_custom(
     )
     df_raw_income_statement = df_raw_income_statement.tail(-3)
 
-    ls_key = ["date", "symbol", "period"]
+    ls_key = ["date", "symbol", "period", "calendarYear"]
     df_result = df_raw_ratios.merge(df_raw_income_statement, how="inner", on=ls_key)
     df_result["enterpriseValueOverEBITDA"] = (
         df_result["enterpriseValue"] / df_result["ebitda_ttm"]
@@ -266,9 +266,9 @@ def get_symbol_list_to_csv():
 if __name__ == "__main__":
     # print(get_treasury_rate("2022-07-29"))
     # print(get_stock_price("fff"))
-    # a = get_company_financial_ratios_custom("AAPL", period="quarter", limit=20)
+    a = get_company_financial_ratios_custom("AAPL", period="quarter", limit=20)
     # print(a)
-    get_symbol_list_to_csv()
-    a = get_stock_price("SPY", to_csv=True)
+    # get_symbol_list_to_csv()
+    # a = get_stock_price("SPY", to_csv=True)
     print(a)
     pass

@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 statsmodels = "*"
+jupyter = "*"
 
 [dev-packages]
 ipykernel = "*"
