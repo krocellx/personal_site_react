@@ -57,7 +57,7 @@ class Factor:
             self.convert_to_fraction()
 
     def parse_dates(self):
-        self.factor_data['DATE'] = pd.to_datetime(self.factor_data['DATE'])
+        self.factor_data['DATE'] = pd.to_datetime(self.factor_data['DATE'], format='%Y%m%d')
 
     def convert_to_fraction(self):
         # Convert factor data from percentage to fraction
