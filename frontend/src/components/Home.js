@@ -17,7 +17,7 @@ const Home = () => (
       <li>Search for images based on keywords and store them in MongoDB</li>
       <Button
         variant="primary"
-        href="https://github.com/krocellx/personal_site_react"
+        href="https://github.com/krocellx"
         target="_blank"
         style={{ marginTop: '40px' }}
       >
