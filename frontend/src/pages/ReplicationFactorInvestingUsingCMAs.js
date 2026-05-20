@@ -8,7 +8,7 @@ const ReplicationFactorInvestingUsingCMAs = () => {
     <iframe
       title="test"
       id="my_iframe"
-      class="responsive-iframe"
+      className="responsive-iframe"
       src={`${API_URL}/replication-factor-investing-using-cmas`}
       width="100%"
       height="100%"

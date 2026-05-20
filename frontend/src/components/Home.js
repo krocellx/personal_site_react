@@ -2,8 +2,8 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 
 const Home = () => (
-  <div class="p-5 mb-4 bg-light rounded-3">
-    <div class="container-fluid py-5">
+  <div className="p-5 mb-4 bg-light rounded-3">
+    <div className="container-fluid py-5">
       <h1>Harvey Xie's Personal Site</h1>
       <p>
         Rotman MBA Candidate with a passion for Portfolio Construction and
