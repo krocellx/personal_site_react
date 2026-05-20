@@ -12,26 +12,41 @@ from collections import defaultdict
 # Portfolio Definitions
 class Portfolio:
     def __init__(self, assets, weights, historical_prices=None, forecast_returns=None):
-        assert len(assets) == len(weights), "Assets and weights lists must have the same length"
-        assert np.isclose(sum(weights), 1), "Weights must sum to 1"
-        assert all(0 <= weight <= 1 for weight in weights), "Weights must be in the range [0, 1]"
+        if len(assets) != len(weights):
+            raise ValueError("Assets and weights lists must have the same length")
+        if not np.isclose(sum(weights), 1):
+            raise ValueError("Weights must sum to 1")
+        if not all(0 <= weight <= 1 for weight in weights):
+            raise ValueError("Weights must be in the range [0, 1]")
 
         self.assets = assets
         self.weights = np.array(weights)
 
         if historical_prices is not None:
-            assert set(assets).issubset(set(
-                historical_prices['ticker'].unique())), "All assets must be present in the historical prices DataFrame"
+            required_columns = {'ticker', 'date', 'value'}
+            missing_columns = required_columns - set(historical_prices.columns)
+            if missing_columns:
+                raise ValueError(
+                    "Historical prices must include columns: "
+                    + ", ".join(sorted(required_columns))
+                )
+            if not set(assets).issubset(set(historical_prices['ticker'].unique())):
+                raise ValueError(
+                    "All assets must be present in the historical prices DataFrame"
+                )
             self.returns = self.calculate_returns_from_prices(historical_prices)
 
         if forecast_returns is not None:
-            assert len(assets) == forecast_returns.shape[
-                1], "Assets and forecast returns lists must have the same length"
+            if len(assets) != forecast_returns.shape[1]:
+                raise ValueError(
+                    "Assets and forecast returns lists must have the same length"
+                )
             self.returns = self.validate_returns(forecast_returns)
 
     @staticmethod
     def validate_returns(returns_df):
-        assert returns_df.shape[0] > 1, "Returns DataFrame must have more than one row"
+        if returns_df.shape[0] <= 1:
+            raise ValueError("Returns DataFrame must have more than one row")
         return returns_df
 
     def calculate_returns_from_prices(self, prices_df):
@@ -40,8 +55,10 @@ class Portfolio:
         pivoted_prices = prices_df.pivot(index='date', columns='ticker', values='value')
 
         # Ensure the pivoted DataFrame has the correct columns
-        assert set(self.assets).issubset(
-            set(pivoted_prices.columns)), "All assets must be present in the pivoted prices DataFrame"
+        if not set(self.assets).issubset(set(pivoted_prices.columns)):
+            raise ValueError(
+                "All assets must be present in the pivoted prices DataFrame"
+            )
 
         # Calculate returns
         returns = pivoted_prices.pct_change().dropna()
